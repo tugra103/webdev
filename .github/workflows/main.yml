@@ -24,8 +24,8 @@ jobs:
       - name: Merge temp app into my-app
         run: |
           echo "Merging temp app into my-app..."
-          mkdir -p my-app
           rsync -a -r --ignore-existing my-app-temp/ ./
+          ls .
           rm -rf my-app-temp
 
       - name: Commit and push changes
