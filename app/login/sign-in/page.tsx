@@ -68,33 +68,41 @@ export default function SignIn() {
               <label htmlFor="email" className="text-sm font-medium">
                 Email
               </label>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                placeholder="Enter your email"
-                className={errors.email ? 'border-red-500' : ''}
-              />
-              {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
+<InputText
+  id="email"
+  name="email"
+  type="email"
+  value={formData.email}
+  onChange={handleChange}
+  required
+  placeholder="Enter your email"
+  className={`w-full p-2 rounded border ${
+    errors.email ? 'border-red-500' : 'border-gray-300'
+  }`}
+/>
+{errors.email && (
+  <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+)}
             </div>
             <div className="space-y-2">
               <label htmlFor="password" className="text-sm font-medium">
                 Password
               </label>
-              <Input
-                id="password"
-                name="password"
-                type="password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-                placeholder="Enter your password"
-                className={errors.password ? 'border-red-500' : ''}
-              />
-              {errors.password && <p className="text-sm text-red-500">{errors.password}</p>}
+              <InputText
+  id="password"
+  name="password"
+  type="password"
+  value={formData.password}
+  onChange={handleChange}
+  required
+  placeholder="Enter your email"
+  className={`w-full p-2 rounded border ${
+    errors.password ? 'border-red-500' : 'border-gray-300'
+  }`}
+/>
+{errors.password && (
+  <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+)}
             </div>
             {errors.submit && <p className="text-center text-sm text-red-500">{errors.submit}</p>}
             <Button type="submit" className="w-full" disabled={isSubmitting}>
