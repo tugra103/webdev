@@ -25,9 +25,7 @@ export default function Home() {
       apiKey="GZPxUkuA0MLMwf37sk9s"
       region="eu"
     >
-      <Component {...pageProps} />
-    </FingerprintProvider>
-    <div>
+          <div>
       <button onClick={() => getData()}>
         Reload data
       </button>
@@ -35,5 +33,6 @@ export default function Home() {
       <p>Full visitor data:</p>
       <pre>{error ? error.message : JSON.stringify(data, null, 2)}</pre>
     </div>
+    </FingerprintProvider>
   )
 }
