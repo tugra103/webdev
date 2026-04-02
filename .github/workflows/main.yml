@@ -20,6 +20,7 @@ jobs:
         run: |
           echo "Creating temp Next.js app..."
           npx create-next-app@latest my-app-temp --yes
+          npm install react-bootstrap bootstrap
 
       - name: Merge temp app into my-app
         run: |
