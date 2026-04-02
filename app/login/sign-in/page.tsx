@@ -25,7 +25,6 @@ export default function SignIn() {
   }>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigate = useRouter()
-  const { signIn } = useAuth()
 
   const handleSubmit = async (data: typeof formData) => {
     try {
