@@ -1,4 +1,5 @@
 // pages/index.tsx
+"use client";
 import {useVisitorData} from '@fingerprint/react'
 
 export default function Home() {
