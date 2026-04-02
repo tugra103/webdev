@@ -1,4 +1,5 @@
 // pages/_app.tsx
+"use client"
 import { FingerprintProvider } from '@fingerprint/react'
 import {AppProps} from 'next/app'
 
