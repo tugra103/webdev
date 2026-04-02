@@ -7,7 +7,7 @@ import { Badge } from 'primereact/badge';
 import { Avatar } from 'primereact/avatar';  
 
 export default function TemplateDemo() {
-    const itemRenderer = (item) => (
+    const itemRenderer = (item:MenuItem) => (
         <a className="flex align-items-center p-menuitem-link">
             <span className={item.icon} />
             <span className="mx-2">{item.label}</span>
