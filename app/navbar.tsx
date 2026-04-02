@@ -6,7 +6,7 @@ import {
   Button,
   IconButton,
 } from "@material-tailwind/react";
-import { Typography } from "@material-tailwind/react";
+
  
 export function NavbarDefault() {
   const [openNav, setOpenNav] = React.useState(false);
@@ -25,6 +25,7 @@ export function NavbarDefault() {
         variant="small"
         color="blue-gray"
         className="flex items-center gap-x-2 p-1 font-medium"
+        {...({} as any)}
       >
         <svg
           width="16"
