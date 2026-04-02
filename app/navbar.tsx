@@ -15,7 +15,7 @@ export default function TemplateDemo() {
             {item.shortcut && <span className="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{item.shortcut}</span>}
         </a>
     );
-    const items: MenuItem[] = [
+    const items: any[] = [
         {
             label: 'Home',
             icon: 'pi pi-home'
