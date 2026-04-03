@@ -145,7 +145,7 @@ const Navbar = () => {
       </div>
       <div className="luxury-avatar">
         <Avatar
-          image={user.photoURL}
+          image={user?.photoURL ?? undefined}
           shape="circle"
         />
       </div>
