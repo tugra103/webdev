@@ -1,10 +1,18 @@
 import Navbar from "./navbar"
+import { useRouter } from 'next/navigation';
 
 export default function Page() {
+  const { user } = useAuth();
+  const navigate = useRouter()
   return (
-    <>
-      <Navbar />
-      <div>Sayfa içeriği burada</div>
-    </>
-  );
+    <div>
+    {user ? (
+      <>
+        <Navbar />
+        <div>Sayfa içeriği burada</div>
+      </>
+  ) : (
+    navigate.push("/login/sign-in")
+  )}
+  </div>);
 }
