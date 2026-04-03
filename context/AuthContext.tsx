@@ -10,6 +10,7 @@ type AuthContextType = {
 
 const AuthContext = createContext<AuthContextType>({
   user: null,
+  loading: true,
 });
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
