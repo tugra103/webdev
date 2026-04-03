@@ -1,5 +1,5 @@
 "use client"
-import { useAuth } from "firebase/auth";
+import { useAuth } from '@/context/AuthContext';
 import Navbar from "./navbar"
 import { useRouter } from 'next/navigation';
 
