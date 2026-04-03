@@ -6,7 +6,23 @@ import { useRouter } from 'next/navigation';
 import { Card} from 'primereact/card' 
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { Button } from 'primereact/button';
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDDDedXVLAJjLDdG_JWssnQKoN8Ks5R404",
+  authDomain: "drr0-f7899.firebaseapp.com",
+  projectId: "drr0-f7899",
+  storageBucket: "drr0-f7899.firebasestorage.app",
+  messagingSenderId: "338401368594",
+  appId: "1:338401368594:web:56c7dd050cb52d6008d6cb"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 
 const signInSchema = z.object({
