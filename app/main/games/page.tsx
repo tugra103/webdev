@@ -7,7 +7,7 @@ import Navbar from "../../../comporents/navbar";
 
 export default function Page() {
   const { user } = useAuth();
-  const {router} = useRouter()
+  const router = useRouter()
   if (user) {
     return (
     <div>
