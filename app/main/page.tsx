@@ -7,7 +7,7 @@ import Navbar from "../../comporents/navbar";
 
 export default function Page() {
   const { user } = useAuth();
-  const router = useRouter()
+  
   if (user) {
     return (
     <div>
@@ -16,7 +16,6 @@ export default function Page() {
     </div>
     );
   } else {
-    router.push("/login/sign-in")
     return (<div>
       Loading...
     </div>)
