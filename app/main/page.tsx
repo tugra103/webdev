@@ -7,12 +7,18 @@ import Navbar from "@comporents/navbar";
 
 export default function Page() {
   const { user } = useAuth();
-  if (!user) return null;
-
-  return (
+  const {router} = useRouter()
+  if (user) {
+    return (
     <div>
       <Navbar />
       <div>Sayfa içeriği burada</div>
     </div>
-  );
+    );
+  } else {
+    router.push("/login/sign-in")
+    return (<div>
+      Loading...
+    </div>)
+  }
 }
