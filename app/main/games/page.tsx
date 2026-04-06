@@ -13,7 +13,7 @@ export default function Page() {
 
   if (!user) router.push("/webdev/login/sign-in");
     return (
-    <div>
+    <div className="theme1">
       <Navbar />
       <div>Sayfa içeriği burada</div>
     </div>

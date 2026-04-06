@@ -49,7 +49,7 @@ export default function Page() {
   return (
     <div>
       <Navbar />
-      <div className="rounded-md w-full h-full place-content-center">
+      <div className="rounded-md w-full h-full place-content-center theme1">
 
         <input
           type="file"

@@ -28,7 +28,7 @@ export default function Page() {
   return (
     <div>
       <Navbar />
-      <div className="rounded-md w-full h-screen place-content-center">
+      <div className="rounded-md w-full h-screen place-content-center theme1">
         <Avatar
           image={user?.photoURL ?? "https://primefaces.org/cdn/primereact/images/avatar/default.png"}
           shape="circle"

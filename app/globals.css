@@ -2,8 +2,12 @@
 @import "primereact/resources/themes/lara-light-blue/theme.css";
 @import "primereact/resources/primereact.min.css";
 
-:root {
+#theme1 {
   --background: linear-gradient(135deg,#f0f4ff, 0% ,#faf5ff, 50% , #f0f9ff, 100%);
+  --foreground: #171717;
+}
+:root {
+  --background: #ffffff;
   --foreground: #171717;
 }
 
