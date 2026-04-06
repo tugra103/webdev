@@ -72,7 +72,7 @@ export default function Page() {
     setUploading(true);
     const reader = new FileReader();
     reader.onload = async (event) => {
-      const base64 = compressImage(file)
+      const base64 = await compressImage(file)
       await setDoc(doc(db, "users", user.uid), { photoURL: base64 }, { merge: true });
       setPhotoURL(base64);
       setUploading(false);
