@@ -117,8 +117,8 @@ export default function Page() {
         
         <div>{user?.displayName}</div>
         <div onClick={
-          updateProfile(auth.currentUser, {
-              displayName: prompt("Yeni Ad:", auth?.displayName)
+          updateProfile(user, {
+              displayName: prompt("Yeni Ad:", user?.displayName)
           })
         }>
           <span>
