@@ -7,6 +7,7 @@ import { Card } from "primereact/card";
 import { Avatar } from "primereact/avatar";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "@/app/firebase";
+import { updateProfile } from "firebase/auth";
 
 import { ProgressSpinner } from 'primereact/progressspinner';
         
@@ -76,6 +77,9 @@ export default function Page() {
       await setDoc(doc(db, "users", user.uid), { photoURL: base64 }, { merge: true });
       setPhotoURL(base64);
       setUploading(false);
+      updateProfile(auth.currentUser, {
+        photoURL: base64
+      })
     };
     reader.readAsDataURL(file);
   };
@@ -110,8 +114,17 @@ export default function Page() {
             </span>
           </div>
         </div>
-
+        
         <div>{user?.displayName}</div>
+        <div onClick={
+          updateProfile(auth.currentUser, {
+              displayName: prompt("Yeni Ad:", auth?.displayName)
+          })
+        }>
+          <span>
+            Değiştir
+          </span>
+        </div>
       </div>
     </div>
   );
