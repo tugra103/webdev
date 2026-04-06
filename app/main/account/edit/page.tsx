@@ -90,7 +90,7 @@ export default function Page() {
     <div>
       <Navbar />
       <div className="min-h-screen justify-center items-center">
-<div className="flex flex-col gap-4 border-solid outline-2 outline-blue-500 ">
+<div className="flex items-center flex-col gap-4 border-solid outline-2 outline-blue-500 ">
   <input
     type="file"
     ref={fileInputRef}
@@ -128,6 +128,7 @@ export default function Page() {
     </button>
   </div>
 </div>
-    </div></div>
+    </div>
+</div>
   );
 }
