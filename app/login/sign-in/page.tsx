@@ -53,16 +53,13 @@ export default function SignIn() {
       const validatedData = signInSchema.parse(data)
 
       // Attempt sign in
-      setPersistence(auth, browserLocalPersistence)
-        .then(() => {
           signInWithEmailAndPassword(auth, validatedData.email, validatedData.password)
             .then((userCredential) => {
               navigate.push('/main')
             })
             .catch((error) => {
               setErrors({ submit: error.message })
-            });
-        })
+            })
 
     } finally {
       setIsSubmitting(false)

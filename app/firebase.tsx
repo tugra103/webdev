@@ -14,5 +14,10 @@ const firebaseConfig = {
   appId: "1:338401368594:web:56c7dd050cb52d6008d6cb"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+// ✅ Singleton — HMR'da tekrar init etmez
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
+
+export const auth = getAuth(app);
+
+// ✅ Persistence'ı burada bir kez set et, AuthContext'te tekrar etme
+setPersistence(auth, browserLocalPersistence);
