@@ -77,7 +77,7 @@ export default function Page() {
       await setDoc(doc(db, "users", user.uid), { photoURL: base64 }, { merge: true });
       setPhotoURL(base64);
       setUploading(false);
-      updateProfile(auth.currentUser, {
+      updateProfile(user, {
         photoURL: base64
       })
     };
