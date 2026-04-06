@@ -1,9 +1,9 @@
 "use client";
-import { useAuth } from "../../../context/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useState } from "react";
-import Navbar from "../../../comporents/navbar";
+import Navbar from "@/comporents/navbar";
 import { Card } from "primereact/card";
 import { Avatar } from "primereact/avatar";
 
@@ -32,6 +32,7 @@ export default function Page() {
         <Avatar
           image={user?.photoURL ?? "https://primefaces.org/cdn/primereact/images/avatar/default.png"}
           shape="circle"
+          size="xlarge"
         />
         <div>{user?.displayName}</div>
       </Card>
