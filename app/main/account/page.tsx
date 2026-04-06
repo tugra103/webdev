@@ -7,7 +7,7 @@ import { Card } from "primereact/card";
 import { Avatar } from "primereact/avatar";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "@/app/firebase";
-import { updateProfile, getAuth } from "firebase/auth";
+import { updateProfile, getAuth, signOut } from "firebase/auth";
 
 import { ProgressSpinner } from 'primereact/progressspinner';
         
