@@ -2,7 +2,6 @@
 import { auth } from "@/app/firebase"; // ✅ artık import ediliyor
 import { createContext, useContext, useEffect, useState } from "react";
 import { onAuthStateChanged, User } from "firebase/auth";
-import { auth } from "@/app/firebase";
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
