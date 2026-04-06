@@ -2,6 +2,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth, browserLocalPersistence, setPersistence  } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -17,7 +19,7 @@ const firebaseConfig = {
 
 // ✅ Singleton — HMR'da tekrar init etmez
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
-
+export const db = getFirestore(app);
 export const auth = getAuth(app);
 
 // ✅ Persistence'ı burada bir kez set et, AuthContext'te tekrar etme
