@@ -13,6 +13,8 @@ import { ProgressSpinner } from 'primereact/progressspinner';
 import "primereact/resources/themes/lara-light-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 
+
+
 export default function Page() {
   const { user, loading } = useAuth();
   const router = useRouter();
@@ -31,6 +33,37 @@ export default function Page() {
   useEffect(() => {
     if (!loading && !user) router.push("/webdev/login/sign-in");
   }, [user, loading]);
+  const compressImage = (file: File): Promise<string> => {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        
+        // ✅ Max 200x200 yap
+        const MAX = 800;
+        let { width, height } = img;
+        if (width > height) {
+          height = (height / width) * MAX;
+          width = MAX;
+        } else {
+          width = (width / height) * MAX;
+          height = MAX;
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        canvas.getContext("2d")!.drawImage(img, 0, 0, width, height);
+
+        // ✅ 0.7 kalite ile JPEG'e çevir (~20-30KB olur)
+        resolve(canvas.toDataURL("image/jpeg", 0.7));
+      };
+      img.src = e.target?.result as string;
+    };
+    reader.readAsDataURL(file);
+  });
+};
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -39,7 +72,7 @@ export default function Page() {
     setUploading(true);
     const reader = new FileReader();
     reader.onload = async (event) => {
-      const base64 = event.target?.result as string;
+      const base64 = compressImage(file)
       await setDoc(doc(db, "users", user.uid), { photoURL: base64 }, { merge: true });
       setPhotoURL(base64);
       setUploading(false);
