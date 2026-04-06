@@ -7,6 +7,9 @@ import Navbar from "@/comporents/navbar";
 import { Card } from "primereact/card";
 import { Avatar } from "primereact/avatar";
 
+import { ProgressSpinner } from 'primereact/progressspinner';
+        
+
 // ✅ PrimeReact CSS — bunlar yoksa card gözükmez
 import "primereact/resources/themes/lara-light-blue/theme.css";
 import "primereact/resources/primereact.min.css";
@@ -22,8 +25,8 @@ export default function Page() {
     }
   }, [user, loading]);
 
-  if (loading) return null;
-  if (!user) return null; // ✅ redirect olana kadar boş göster
+  if (loading) return <ProgressSpinner />;
+  if (!user) return <ProgressSpinner />; // ✅ redirect olana kadar boş göster
 
   return (
     <div>

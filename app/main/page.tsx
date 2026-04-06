@@ -5,12 +5,15 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import Navbar from "../../comporents/navbar";
 import { useState } from "react";
+
+import { ProgressSpinner } from 'primereact/progressspinner';
+        
 export default function Page() {
   // Herhangi bir protected route / middleware
   const { user, loading } = useAuth();
   const router= useRouter()
 
-  if (loading) return null; // veya <Spinner />  ← BU OLMAZSA refresh'te user=null görür ve redirect eder
+  if (loading) return <ProgressSpinner />; // veya <Spinner />  ← BU OLMAZSA refresh'te user=null görür ve redirect eder
 
   if (!user) router.push("/webdev/login/sign-in");
 

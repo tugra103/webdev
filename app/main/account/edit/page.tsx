@@ -7,6 +7,9 @@ import { Card } from "primereact/card";
 import { Avatar } from "primereact/avatar";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "@/app/firebase";
+
+import { ProgressSpinner } from 'primereact/progressspinner';
+        
 import "primereact/resources/themes/lara-light-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 
@@ -44,7 +47,7 @@ export default function Page() {
     reader.readAsDataURL(file);
   };
 
-  if (loading || !user) return null;
+  if (loading || !user) return <ProgressSpinner />;
 
   return (
     <div>
