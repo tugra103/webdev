@@ -7,6 +7,7 @@ import Navbar from "../../../comporents/navbar";
 import { Card} from 'primereact/card'
 import { Avatar } from "primereact/avatar";
 
+import {useEffect, useState } from "react";
 export default function Page() {
   const { user } = useAuth();
   const router = useRouter()
