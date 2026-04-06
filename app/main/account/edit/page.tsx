@@ -89,7 +89,7 @@ export default function Page() {
   return (
     <div>
       <Navbar />
-      <div className="min-h-screen justify-center items-center">
+      <div className="min-h-screen justify-center items-center h-full w-full">
 <div className="flex items-center flex-col gap-4 border-solid outline-2 outline-blue-500 h-fit w-fit">
   <input
     type="file"
