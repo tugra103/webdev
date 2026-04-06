@@ -14,7 +14,7 @@ export default function Page() {
 
   if (loading) return null; // veya <Spinner />  ← BU OLMAZSA refresh'te user=null görür ve redirect eder
 
-  if (!user) router.redirect("/login");
+  if (!user) router.push("/webdev/login/sign-in");
     return (
     <div>
         <Navbar />
