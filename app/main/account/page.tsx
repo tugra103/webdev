@@ -28,14 +28,14 @@ export default function Page() {
   return (
     <div>
       <Navbar />
-      <Card className="rounded-md w-full h-screen place-content-center">
+      <div className="rounded-md w-full h-screen place-content-center">
         <Avatar
           image={user?.photoURL ?? "https://primefaces.org/cdn/primereact/images/avatar/default.png"}
           shape="circle"
           size="xlarge"
         />
         <div>{user?.displayName}</div>
-      </Card>
+      </div>
     </div>
   );
 }
