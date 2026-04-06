@@ -7,6 +7,13 @@ import Navbar from "../../../comporents/navbar";
 
 export default function Page() {
   const { user } = useAuth();
+
+  // client-side mount olmadan render etmeye çalışma
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) return null; // veya loading skeleton
+  if (!user) return <div>Lütfen giriş yapın</div>;
     return (
     <div>
       <Navbar />

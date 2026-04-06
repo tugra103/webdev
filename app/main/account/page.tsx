@@ -10,6 +10,13 @@ import { Avatar } from "primereact/avatar";
 export default function Page() {
   const { user } = useAuth();
   const router = useRouter()
+
+  // client-side mount olmadan render etmeye çalışma
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) return null; // veya loading skeleton
+  if (!user) return <div>Lütfen giriş yapın</div>;
     return (
     <div>
         <Navbar />
