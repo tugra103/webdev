@@ -108,7 +108,7 @@ const Navbar = () => {
   );
 
   const items: any[] = [
-    { label: "Ana Sayfa", icon: "pi pi-home", url:"/main" },
+    { label: "Ana Sayfa", icon: "pi pi-home", url:"/webdev/main" },
     { label: "Features", icon: "pi pi-star", url:"#"},
     {
       label: "Projects",
@@ -147,10 +147,12 @@ const Navbar = () => {
         <InputText placeholder="Search…" type="text" />
       </div>
       <div className="luxury-avatar" onClick={() => router.push("/webdev/main/account")}>
-        <Avatar
-          image={user?.photoURL ?? "https://primefaces.org/cdn/primereact/images/avatar/default.png"}
-          shape="circle"
-        />
+        <a href="/webdev/main/account">
+          <Avatar
+            image={user?.photoURL ?? "https://primefaces.org/cdn/primereact/images/avatar/default.png"}
+            shape="circle"
+          />
+        </a>
       </div>
     </div>
   );
