@@ -18,7 +18,7 @@ export default function Page() {
     return (
     <div>
         <Navbar />
-        <Card className="round-md place-content-center">
+        <Card className="round-md w-full h-full place-content-center">
             <Avatar
                 image={user?.photoURL ?? "https://primefaces.org/cdn/primereact/images/avatar/default.png"}
                 shape="circle"
