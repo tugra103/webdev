@@ -10,7 +10,6 @@ import { Avatar } from "primereact/avatar";
 export default function Page() {
   const { user } = useAuth();
   const router = useRouter()
-  if (user) {
     return (
     <div>
         <Navbar />
@@ -25,10 +24,4 @@ export default function Page() {
         </Card>      
     </div>
     );
-  } else {
-    router.push("/login/sign-in")
-    return (<div>
-      Loading...
-    </div>)
-  }
 }
