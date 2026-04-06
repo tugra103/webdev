@@ -143,13 +143,11 @@ const Navbar = () => {
       <div className="luxury-search">
         <InputText placeholder="Search…" type="text" />
       </div>
-      <div className="luxury-avatar">
-        <a href="/webdev/main/account">
-          <Avatar
-            image={user?.photoURL ?? "https://primefaces.org/cdn/primereact/images/avatar/default.png"}
-            shape="circle"
-          />
-        </a>
+      <div className="luxury-avatar" onClick={() => router.push("/webdev/main/account")}>
+        <Avatar
+          image={user?.photoURL ?? "https://primefaces.org/cdn/primereact/images/avatar/default.png"}
+          shape="circle"
+        />
       </div>
     </div>
   );
