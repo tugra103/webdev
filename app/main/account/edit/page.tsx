@@ -90,7 +90,7 @@ export default function Page() {
     <div>
       <Navbar />
       <div className="min-h-screen justify-center items-center h-full w-full">
-<div className="flex items-center flex-col gap-4 border-solid outline-2 outline-blue-500 h-fit w-fit">
+<div className="flex items-center rounded-md flex-col gap-4 border-solid outline-2 outline-blue-500 h-fit w-fit">
   <input
     type="file"
     ref={fileInputRef}
