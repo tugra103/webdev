@@ -7,7 +7,7 @@ import { Card } from "primereact/card";
 import { Avatar } from "primereact/avatar";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "@/app/firebase";
-import { updateProfile } from "firebase/auth";
+import { updateProfile, getAuth } from "firebase/auth";
 
 import { ProgressSpinner } from 'primereact/progressspinner';
         
@@ -127,6 +127,10 @@ export default function Page() {
       Değiştir
     </button>
   </div>
+  <button type="button" onClick={()=>{
+    const auth = getAuth();
+    signOut(auth)
+  }}>Çıkış Yap</button>
 </div>
     </div>
 </div>
