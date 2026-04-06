@@ -6,6 +6,7 @@ import { Menubar } from "primereact/menubar";
 import { InputText } from "primereact/inputtext";
 import { Badge } from "primereact/badge";
 import { Avatar } from "primereact/avatar";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const lightStyles = `
@@ -138,6 +139,8 @@ const Navbar = () => {
     />
   );
   const { user } = useAuth();
+  const router = useRouter()
+
   const end = (
     <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
       <div className="luxury-search">
