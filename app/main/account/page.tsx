@@ -126,11 +126,11 @@ export default function Page() {
     >
       Değiştir
     </button>
-  </div>
-  <button type="button" onClick={()=>{
+      <button type="button" onClick={()=>{
     const auth = getAuth();
     signOut(auth)
   }}>Çıkış Yap</button>
+  </div>
 </div>
     </div>
 </div>
