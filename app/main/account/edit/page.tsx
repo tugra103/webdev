@@ -89,42 +89,44 @@ export default function Page() {
   return (
     <div>
       <Navbar />
-      <div className="rounded-md w-full h-full place-content-center theme1">
+<div className="flex flex-col items-center justify-center w-full h-full gap-4 theme1">
+  <input
+    type="file"
+    ref={fileInputRef}
+    onChange={handleFileChange}
+    className="hidden"
+    accept="image/*"
+  />
 
-        <input
-          type="file"
-          ref={fileInputRef}
-          onChange={handleFileChange}
-          className="hidden"
-          accept="image/*"
-        />
+  <div
+    className="cursor-pointer relative w-fit"
+    onClick={() => fileInputRef.current?.click()}
+  >
+    <Avatar
+      image={photoURL || "https://primefaces.org/cdn/primereact/images/avatar/default.png"}
+      shape="circle"
+      size="xlarge"
+    />
+    <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 rounded-full opacity-0 hover:opacity-100 transition">
+      <span className="text-white text-xs">
+        {uploading ? "Yükleniyor..." : "Değiştir"}
+      </span>
+    </div>
+  </div>
 
-        <div
-          className="cursor-pointer relative w-fit"
-          onClick={() => fileInputRef.current?.click()}
-        >
-          <Avatar
-            image={photoURL || "https://primefaces.org/cdn/primereact/images/avatar/default.png"}
-            shape="circle"
-            size="xlarge"
-          />
-          <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 rounded-full opacity-0 hover:opacity-100 transition">
-            <span className="text-white text-xs">
-              {uploading ? "Yükleniyor..." : "Değiştir"}
-            </span>
-          </div>
-        </div>
-        
-        <div>{user?.displayName}</div>
-        <div onClick={()=>{
-          var newName = prompt("Yeni Ad:", user?.displayName ?? "");
-          if (newName) updateProfile(user, { displayName: newName });
-        }}>
-          <span>
-            Değiştir
-          </span>
-        </div>
-      </div>
+  <div className="text-center">
+    <p className="font-semibold text-lg">{user?.displayName}</p>
+    <button
+      className="text-sm text-blue-500 hover:underline mt-1"
+      onClick={() => {
+        const newName = prompt("Yeni Ad:", user?.displayName ?? "");
+        if (newName) updateProfile(user, { displayName: newName });
+      }}
+    >
+      Değiştir
+    </button>
+  </div>
+</div>
     </div>
   );
 }
