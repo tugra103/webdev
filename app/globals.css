@@ -3,7 +3,7 @@
 @import "primereact/resources/primereact.min.css";
 
 :root {
-  background: linear-gradient(135deg,#23f0f4ff, 0% ,#faf5ff, 50% , #f0f9ff, 100%)
+  --background: linear-gradient(135deg,#23f0f4ff, 0% ,#faf5ff, 50% , #f0f9ff, 100%)
 }
 
 
