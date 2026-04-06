@@ -109,7 +109,7 @@ const Navbar = () => {
 
   const items: any[] = [
     { label: "Ana Sayfa", icon: "pi pi-home", url:"/webdev/main" },
-    { label: "Features", icon: "pi pi-star", url:"#"},
+    { label: "Oyunlar", icon: "pi pi-star", url:"/webdev/main/games"},
     {
       label: "Projects",
       icon: "pi pi-search",
