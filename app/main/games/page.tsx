@@ -1,9 +1,9 @@
 "use client";
 
-import { useAuth } from "../../../context/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import Navbar from "../../../comporents/navbar";
+import Navbar from "@/comporents/navbar";
 import { useState } from "react";
 export default function Page() {
   const { user, loading } = useAuth();

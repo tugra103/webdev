@@ -1,12 +1,12 @@
 "use client";
-import { useAuth } from "../../../context/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import Navbar from "../../../comporents/navbar";
+import Navbar from "@/comporents/navbar";
 import { Card } from "primereact/card";
 import { Avatar } from "primereact/avatar";
 import { doc, setDoc, getDoc } from "firebase/firestore";
-import { db } from "../../../app/firebase";
+import { db } from "@/app/firebase";
 import "primereact/resources/themes/lara-light-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 
