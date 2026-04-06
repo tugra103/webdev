@@ -116,11 +116,11 @@ export default function Page() {
         </div>
         
         <div>{user?.displayName}</div>
-        <div onClick={
+        <div onClick={()=>{
           updateProfile(user, {
               displayName: prompt("Yeni Ad:", user?.displayName)
           })
-        }>
+        }}>
           <span>
             Değiştir
           </span>
