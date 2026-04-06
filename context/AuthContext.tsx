@@ -1,5 +1,5 @@
 // AuthContext.tsx
-import { auth } from "@/lib/firebase"; // ✅ artık import ediliyor
+import { auth } from "@/app/firebase"; // ✅ artık import ediliyor
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState<User | null>(null);
