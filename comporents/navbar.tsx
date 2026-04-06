@@ -144,10 +144,12 @@ const Navbar = () => {
         <InputText placeholder="Search…" type="text" />
       </div>
       <div className="luxury-avatar">
-        <Avatar
-          image={user?.photoURL ?? "https://primefaces.org/cdn/primereact/images/avatar/default.png"}
-          shape="circle"
-        />
+        <a href="/webdev/main/account">
+          <Avatar
+            image={user?.photoURL ?? "https://primefaces.org/cdn/primereact/images/avatar/default.png"}
+            shape="circle"
+          />
+        </a>
       </div>
     </div>
   );
