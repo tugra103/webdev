@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
-import { getAuth, onAuthStateChanged, User } from "firebase/auth";
+import { getAuth, onAuthStateChanged, User, setPersistence, browserLocalPersistence } from "firebase/auth";
 
 type AuthContextType = {
   user: User | null;
@@ -16,12 +16,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const auth = getAuth();
-
+    
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       setUser(firebaseUser); // 🔥 global user burada
     });
 
-    return () => unsubscribe();
+    setPersistence(auth, browserLocalPersistence).then(() => {return () => unsubscribe();})
   }, []);
 
   return (
