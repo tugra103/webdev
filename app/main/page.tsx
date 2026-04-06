@@ -6,14 +6,14 @@ import { useEffect } from "react";
 import Navbar from "../../comporents/navbar";
 import { useState } from "react";
 export default function Page() {
-  const { user } = useAuth();
+  // Herhangi bir protected route / middleware
+  const { user, loading } = useAuth();
+  const router= useRouter()
 
-  // client-side mount olmadan render etmeye çalışma
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  if (loading) return null; // veya <Spinner />  ← BU OLMAZSA refresh'te user=null görür ve redirect eder
 
-  if (!mounted) return null; // veya loading skeleton
-  if (!user) return <div>Lütfen giriş yapın</div>;
+  if (!user) router.redirect("/login");
+
     return (
     <div>
       <Navbar />

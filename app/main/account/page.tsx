@@ -9,15 +9,12 @@ import { Avatar } from "primereact/avatar";
 
 import {useState } from "react";
 export default function Page() {
-  const { user } = useAuth();
-  const router = useRouter()
+  const { user, loading } = useAuth();
+  const router= useRouter()
 
-  // client-side mount olmadan render etmeye çalışma
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  if (loading) return null; // veya <Spinner />  ← BU OLMAZSA refresh'te user=null görür ve redirect eder
 
-  if (!mounted) return null; // veya loading skeleton
-  if (!user) return <div>Lütfen giriş yapın</div>;
+  if (!user) router.redirect("/login");
     return (
     <div>
         <Navbar />
