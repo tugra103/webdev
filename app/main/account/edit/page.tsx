@@ -117,9 +117,8 @@ export default function Page() {
         
         <div>{user?.displayName}</div>
         <div onClick={()=>{
-          updateProfile(user, {
-              displayName: prompt("Yeni Ad:", user?.displayName)
-          })
+          var newName = prompt("Yeni Ad:", user?.displayName ?? "");
+          if (newName) updateProfile(user, { displayName: newName });
         }}>
           <span>
             Değiştir
