@@ -49,7 +49,7 @@ export default function Page() {
   return (
     <div>
       <Navbar />
-      <Card className="rounded-md w-full h-full place-content-center">
+      <div className="rounded-md w-full h-full place-content-center">
 
         <input
           type="file"
@@ -76,7 +76,7 @@ export default function Page() {
         </div>
 
         <div>{user?.displayName}</div>
-      </Card>
+      </div>
     </div>
   );
 }
