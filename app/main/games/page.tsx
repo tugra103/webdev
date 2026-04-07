@@ -24,22 +24,6 @@ export default function Page() {
   
   */ 
   if (!user) router.push("/webdev/login/sign-in");
-  const itemRenderer = (item: any) => (
-  <a 
-    href={item.url ?? ""}
-    className="flex flex-col p-menuitem-link border border-gray-200 rounded-lg overflow-hidden p-2 gap-2 no-underline"
-  >
-    <div className="self-start">
-      <span>{item.name}</span>
-    </div>
-    <div className="w-full">
-      <img
-        src={item.imgurl}
-        className="w-full h-full object-cover rounded-md block"
-      />
-    </div>
-  </a>
-);  
 const items = [
   {
     name: "Ürün 1",
