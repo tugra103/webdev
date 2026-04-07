@@ -62,8 +62,8 @@ const menuItems = items.map(item => ({
     return (
     <div className="theme1">
       <Navbar />
-      <div>
-        <Menu model={menuItems} />
+      <div className="w-full h-full">
+        <Menu model={menuItems} className="w-full h-full" />
       </div>
     </div>
     );
