@@ -40,7 +40,7 @@ const items = [
 const itemRenderer = (item: any) => (
   <a
     href={item.url ?? ""}
-    className="flex flex-col p-menuitem-link border border-gray-200 w-full rounded-lg overflow-hidden p-2 gap-2 no-underline"
+    className="flex flex-col p-menuitem-link border border-gray-200 rounded-lg overflow-hidden p-2 gap-2 no-underline flex-shrink-0 w-1/3"
   >
     <div className="self-start">
       <span>{item.name}</span>
@@ -54,6 +54,10 @@ const itemRenderer = (item: any) => (
   </a>
 );
 
+// Wrapper
+<div className="flex overflow-x-auto w-full gap-2">
+  {items.map((item) => itemRenderer(item))}
+</div>
 // items array'ine template ekle
 const menuItems = items.map(item => ({
   ...item,
