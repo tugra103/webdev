@@ -63,10 +63,9 @@ const menuItems = items.map(item => ({
     <div className="theme1">
       <Navbar />
       <div className="w-full h-full">
-        <Menu model={menuItems} className="w-full h-full"   
-  pt={{
-    root: { className: "w-full" }
-  }} />
+        <div className="w-full flex flex-col gap-2 overflow-y-auto">
+          {items.map((item) => itemRenderer(item))}
+        </div>
       </div>
     </div>
     );
