@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { FingerprintProvider } from '@fingerprint/react'
+import { FingerPrinter } from "@/context/fingerprint";
 import { AuthProvider } from "@/context/AuthContext";
 
 
@@ -33,12 +33,9 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">        
         <AuthProvider>
-        <FingerprintProvider
-          apiKey="GZPxUkuA0MLMwf37sk9s"
-          region="eu"
-        >
-          {children}
-        </FingerprintProvider>
+          <FingerPrinter>
+            {children}
+          </FingerPrinter>
         </AuthProvider>
         </body>
     </html>
