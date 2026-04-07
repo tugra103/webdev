@@ -40,25 +40,17 @@ const items = [
 const itemRenderer = (item: any) => (
   <a
     href={item.url ?? ""}
-    className="flex flex-col p-menuitem-link border border-gray-200 rounded-lg overflow-hidden p-2 gap-2 no-underline flex-shrink-0"
-    style={{ width: "calc(33.333% - 8px)" }}
+    className="flex flex-col p-menuitem-link border border-gray-200 rounded-lg overflow-hidden p-2 gap-2 no-underline w-full"
   >
     <div className="self-start">
       <span>{item.name}</span>
     </div>
-    <div className="w-full">
-      <img
-        src={item.imgurl}
-        className="w-full h-full object-cover rounded-md block"
-      />
-    </div>
+    <img
+      src={item.imgurl}
+      className="w-full object-cover rounded-md block"
+    />
   </a>
 );
-
-// Wrapper
-<div className="flex overflow-x-auto w-full gap-2">
-  {items.map((item) => itemRenderer(item))}
-</div>
 // items array'ine template ekle
 const menuItems = items.map(item => ({
   ...item,
