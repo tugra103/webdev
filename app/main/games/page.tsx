@@ -40,7 +40,8 @@ const items = [
 const itemRenderer = (item: any) => (
   <a
     href={item.url ?? ""}
-    className="flex flex-col p-menuitem-link border border-gray-200 rounded-lg overflow-hidden p-2 gap-2 no-underline flex-shrink-0 w-1/3"
+    className="flex flex-col p-menuitem-link border border-gray-200 rounded-lg overflow-hidden p-2 gap-2 no-underline flex-shrink-0"
+    style={{ width: "calc(33.333% - 8px)" }}
   >
     <div className="self-start">
       <span>{item.name}</span>
