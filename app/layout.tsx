@@ -33,7 +33,10 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">        
         <AuthProvider>
-        <FingerprintProvider apiKey="GZPxUkuA0MLMwf37sk9s" region="eu">
+        <FingerprintProvider
+          apiKey="GZPxUkuA0MLMwf37sk9s"
+          region="eu"
+        >
           {children}
         </FingerprintProvider>
         </AuthProvider>

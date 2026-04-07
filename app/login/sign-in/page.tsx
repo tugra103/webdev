@@ -117,7 +117,7 @@ export default function SignIn() {
   value={formData.password}
   onChange={handleChange}
   required
-  placeholder="Enter your email"
+  placeholder="Enter your password"
   className={`w-full p-2 rounded border ${
     errors.password ? 'border-red-500' : 'border-gray-300'
   }`}

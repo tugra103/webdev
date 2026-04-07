@@ -15,7 +15,7 @@ export default function Page() {
 
   if (loading) return <ProgressSpinner />; // veya <Spinner />  ← BU OLMAZSA refresh'te user=null görür ve redirect eder
 
-  if (!user) router.push("/webdev/login/sign-in");
+  if (!user) router.push("/login/sign-in");
 
     return (
     <div className="theme1">
