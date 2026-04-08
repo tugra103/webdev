@@ -14,7 +14,14 @@ const [games, setGames] = useState<{name: string; imgurl: string; url: string; c
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/app/firebase";
 
-// useEffect:
+
+
+export default function Page() {
+  const { user, loading } = useAuth();
+  const router = useRouter();
+  const [search, setSearch] = useState("");
+  const [activeCategory, setActiveCategory] = useState("Tümü");
+  // useEffect:
 useEffect(() => {
   if (!user) return;
   getDocs(collection(db, "games")).then((snap) => {
@@ -27,13 +34,6 @@ useEffect(() => {
     setGames(list);
   });
 }, [user]);
-
-export default function Page() {
-  const { user, loading } = useAuth();
-  const router = useRouter();
-  const [search, setSearch] = useState("");
-  const [activeCategory, setActiveCategory] = useState("Tümü");
-
   useEffect(() => {
     if (!loading && !user) router.push("/webdev/login/sign-in");
   }, [user, loading]);
