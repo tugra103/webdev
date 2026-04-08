@@ -36,6 +36,7 @@ const [addSuccess, setAddSuccess] = useState("");
 // 2. Fonksiyonlar:
 
 const sendFriendReq = async () => {
+  if (!user) return;
   setAddError("");
   setAddSuccess("");
   const targetUid = addCode.trim();
@@ -71,6 +72,7 @@ const sendFriendReq = async () => {
 
 const acceptFriendReq = async (senderUid: string, senderName: string) => {
   // Her iki tarafa da arkadaş ekle
+  if (!user) return;
   const newFriends = { ...Friends, [senderUid]: senderName };
   const newReqs = { ...FriendReqs };
   delete newReqs[senderUid];
@@ -98,6 +100,7 @@ const acceptFriendReq = async (senderUid: string, senderName: string) => {
 };
 
 const rejectFriendReq = async (senderUid: string) => {
+  if (!user) return;
   const newReqs = { ...FriendReqs };
   delete newReqs[senderUid];
 
