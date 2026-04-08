@@ -72,7 +72,7 @@ export default function Page() {
         </div>
 
         {/* Stat kartları */}
-        <div className="grid grid-cols-3 gap-3 mb-5">
+        <div className="grid grid-cols-3 gap-3 mb-5 bg-white">
 {[
   { label: "Profil", sub: "Düzenle", icon: "👤", href: "/webdev/main/account", bg: "bg-blue-50" },
   { label: "Arkadaş", sub: "Ekle", icon: "➕", href: "/webdev/main/account", bg: "bg-green-50" },
