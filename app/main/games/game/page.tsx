@@ -6,6 +6,7 @@ import Navbar from "@/comporents/navbar";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/app/firebase";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 import { ProgressSpinner } from "primereact/progressspinner";
 import "primereact/resources/themes/lara-light-blue/theme.css";
 import "primereact/resources/primereact.min.css";
@@ -17,7 +18,8 @@ type Game = {
   category: string;
 };
 
-export default function Page() {
+
+function GamePage() {
   const { user, loading } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -140,5 +142,13 @@ export default function Page() {
 
       </div>
     </div>
+  );
+}
+
+export default function Page() {
+  return (
+    <Suspense fallback={<div className="flex h-screen items-center justify-center"><ProgressSpinner /></div>}>
+      <GamePage />
+    </Suspense>
   );
 }
