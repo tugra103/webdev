@@ -74,9 +74,9 @@ export default function Page() {
         {/* Stat kartları */}
         <div className="grid grid-cols-3 gap-3 mb-5">
 {[
-  { label: "Profil", sub: "Düzenle", icon: "👤", href: "/webdev/profile", bg: "bg-blue-50" },
-  { label: "Arkadaş", sub: "Ekle", icon: "➕", href: "/webdev/profile", bg: "bg-green-50" },
-  { label: "İstekler", sub: `${Object.keys(friendReqs).length} bekliyor`, icon: "🔔", href: "/webdev/profile", bg: "bg-amber-50" },
+  { label: "Profil", sub: "Düzenle", icon: "👤", href: "/webdev/main/account", bg: "bg-blue-50" },
+  { label: "Arkadaş", sub: "Ekle", icon: "➕", href: "/webdev/main/account", bg: "bg-green-50" },
+  { label: "İstekler", sub: `${Object.keys(friendReqs).length} bekliyor`, icon: "🔔", href: "/webdev/main/account", bg: "bg-amber-50" },
   { label: "Mesaj", sub: "Yakında", icon: "💬", href: "#", bg: "bg-purple-50" },
 ].map((a) => {
   return (
@@ -156,7 +156,7 @@ export default function Page() {
                   </div>
                   <span className="text-sm">{String(name)}</span>
                   <a
-                    href="/webdev/profile"
+                    href="/webdev/main/accound"
                     className="ml-auto text-xs bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600 transition-colors"
                   >
                     Yanıtla
