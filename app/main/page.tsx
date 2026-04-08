@@ -128,7 +128,7 @@ export default function Page() {
                 { label: "İstekler", sub: `${Object.keys(friendReqs).length} bekliyor`, icon: "🔔", href: "/webdev/profile", bg: "bg-amber-50" },
                 { label: "Mesaj", sub: "Yakında", icon: "💬", href: "#", bg: "bg-purple-50" },
               ].map((a) => (
-                
+                <a
                   key={a.label}
                   href={a.href}
                   className="flex flex-col items-start gap-1 p-3 rounded-xl border border-gray-100 hover:bg-gray-50 transition-colors"
