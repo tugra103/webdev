@@ -23,14 +23,15 @@ export default function Page() {
   const [uploading, setUploading] = useState(false);
   const [photoURL, setPhotoURL] = useState("");
   const [FriendCode, setFriendCode] = useState("");
-  const [FriendReqs, setFriendReqs] =useState({})
-  const [Friends, setFriends] =useState({})
+  const [FriendReqs, setFriendReqs] = useState<Record<string, string>>({})
+const [Friends, setFriends] = useState<Record<string, string>>({})
+
   // Arkadaşlar sekmesi için gerekli fonksiyonlar ve JSX
 
 // 1. State'lere şunu ekle:
 const [addCode, setAddCode] = useState("");
-const [FriendReqs, setFriendReqs] = useState<Record<string, string>>({})
-const [Friends, setFriends] = useState<Record<string, string>>({})
+const [addError, setAddError] = useState("");
+const [addSuccess, setAddSuccess] = useState("");
 
 // 2. Fonksiyonlar:
 
