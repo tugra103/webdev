@@ -29,8 +29,8 @@ export default function Page() {
 
 // 1. State'lere şunu ekle:
 const [addCode, setAddCode] = useState("");
-const [addError, setAddError] = useState("");
-const [addSuccess, setAddSuccess] = useState("");
+const [FriendReqs, setFriendReqs] = useState<Record<string, string>>({})
+const [Friends, setFriends] = useState<Record<string, string>>({})
 
 // 2. Fonksiyonlar:
 
