@@ -73,19 +73,26 @@ export default function Page() {
 
         {/* Stat kartları */}
         <div className="grid grid-cols-3 gap-3 mb-5">
-          {[
-            { label: "Arkadaş", value: friendList.length, badge: "Toplam", color: "bg-blue-50 text-blue-800" },
-            { label: "Bekleyen istek", value: Object.keys(friendReqs).length, badge: "Yanıt bekliyor", color: "bg-green-50 text-green-800" },
-            { label: "Çevrimiçi", value: onlineCount, badge: "Şu an aktif", color: "bg-purple-50 text-purple-800" },
-          ].map((s) => (
-            <div key={s.label} className="bg-white border border-gray-100 rounded-xl p-4 shadow-sm">
-              <p className="text-xs text-gray-400 mb-1">{s.label}</p>
-              <p className="text-3xl font-semibold">{s.value}</p>
-              <span className={`text-xs px-2 py-0.5 rounded-full mt-2 inline-block ${s.color}`}>
-                {s.badge}
-              </span>
-            </div>
-          ))}
+{[
+  { label: "Profil", sub: "Düzenle", icon: "👤", href: "/webdev/profile", bg: "bg-blue-50" },
+  { label: "Arkadaş", sub: "Ekle", icon: "➕", href: "/webdev/profile", bg: "bg-green-50" },
+  { label: "İstekler", sub: `${Object.keys(friendReqs).length} bekliyor`, icon: "🔔", href: "/webdev/profile", bg: "bg-amber-50" },
+  { label: "Mesaj", sub: "Yakında", icon: "💬", href: "#", bg: "bg-purple-50" },
+].map((a) => {
+  return (
+    
+      key={a.label}
+      href={a.href}
+      className="flex flex-col items-start gap-1 p-3 rounded-xl border border-gray-100 hover:bg-gray-50 transition-colors"
+    >
+      <div className={`w-8 h-8 rounded-lg ${a.bg} flex items-center justify-center text-base`}>
+        {a.icon}
+      </div>
+      <p className="text-xs font-medium mt-1">{a.label}</p>
+      <p className="text-xs text-gray-400">{a.sub}</p>
+    </a>
+  );
+})}
         </div>
 
         <div className="grid grid-cols-5 gap-4 mb-5">
@@ -147,7 +154,7 @@ export default function Page() {
                     {String(name).charAt(0).toUpperCase()}
                   </div>
                   <span className="text-sm">{String(name)}</span>
-                  
+                  <a
                     href="/webdev/profile"
                     className="ml-auto text-xs bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600 transition-colors"
                   >
