@@ -151,7 +151,7 @@ export default function Page() {
           </div>
         </TabPanel>
         <TabPanel header="Arkadaşlar">
-            
+           <div>Yakında Aktif</div>
         </TabPanel>
       </TabView>
     </div>
