@@ -25,6 +25,87 @@ export default function Page() {
   const [FriendCode, setFriendCode] = useState("");
   const [FriendReqs, setFriendReqs] =useState({})
   const [Friends, setFriends] =useState({})
+  // Arkadaşlar sekmesi için gerekli fonksiyonlar ve JSX
+
+// 1. State'lere şunu ekle:
+const [addCode, setAddCode] = useState("");
+const [addError, setAddError] = useState("");
+const [addSuccess, setAddSuccess] = useState("");
+
+// 2. Fonksiyonlar:
+
+const sendFriendReq = async () => {
+  setAddError("");
+  setAddSuccess("");
+  const targetUid = addCode.trim();
+  if (!targetUid || targetUid === user.uid) {
+    setAddError("Geçersiz kod.");
+    return;
+  }
+
+  const targetRef = doc(db, "users", targetUid);
+  const targetSnap = await getDoc(targetRef);
+  if (!targetSnap.exists()) {
+    setAddError("Kullanıcı bulunamadı.");
+    return;
+  }
+
+  // Zaten arkadaş mı?
+  if (Friends[targetUid]) {
+    setAddError("Zaten arkadaşsınız.");
+    return;
+  }
+
+  // İstek gönder → hedef kullanıcının friendreqs'ine ekle
+  await setDoc(targetRef, {
+    friendreqs: {
+      ...targetSnap.data().friendreqs,
+      [user.uid]: user.displayName ?? user.uid,
+    }
+  }, { merge: true });
+
+  setAddSuccess("Arkadaşlık isteği gönderildi!");
+  setAddCode("");
+};
+
+const acceptFriendReq = async (senderUid: string, senderName: string) => {
+  // Her iki tarafa da arkadaş ekle
+  const newFriends = { ...Friends, [senderUid]: senderName };
+  const newReqs = { ...FriendReqs };
+  delete newReqs[senderUid];
+
+  // Kendi dokümanını güncelle
+  await setDoc(doc(db, "users", user.uid), {
+    friends: newFriends,
+    friendreqs: newReqs,
+  }, { merge: true });
+
+  // Karşı tarafın friendlist'ine de ekle
+  const senderRef = doc(db, "users", senderUid);
+  const senderSnap = await getDoc(senderRef);
+  if (senderSnap.exists()) {
+    await setDoc(senderRef, {
+      friends: {
+        ...senderSnap.data().friends,
+        [user.uid]: user.displayName ?? user.uid,
+      }
+    }, { merge: true });
+  }
+
+  setFriends(newFriends);
+  setFriendReqs(newReqs);
+};
+
+const rejectFriendReq = async (senderUid: string) => {
+  const newReqs = { ...FriendReqs };
+  delete newReqs[senderUid];
+
+  await setDoc(doc(db, "users", user.uid), {
+    friendreqs: newReqs,
+  }, { merge: true });
+
+  setFriendReqs(newReqs);
+};
   
   // ✅ Sayfa açılınca Firestore'dan fotoğrafı çek
   useEffect(() => {
@@ -79,7 +160,9 @@ export default function Page() {
     reader.readAsDataURL(file);
   });
 };
-
+const changeUserData = async (data: any) => {
+  await setDoc(doc(db, "users", user.uid), data, { merge: true });
+};
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file || !user) return;
@@ -141,10 +224,10 @@ export default function Page() {
         const newName = prompt("Yeni Ad:", user?.displayName ?? "");
         if (newName) {
           updateProfile(user, { displayName: newName });
-          await setDoc(doc(db, "users", user.uid), { 
+          changeUserData({ 
             displayName: newName,
             friendcode: user.uid
-          }, { merge: true });
+          })
         }
 
       }}
@@ -163,7 +246,95 @@ export default function Page() {
           </div>
         </TabPanel>
         <TabPanel header="Arkadaşlar">
-           <div>Yakında Aktif</div>
+             <div className="p-4 flex flex-col gap-6 max-w-lg mx-auto">
+
+    {/* Kendi Kodu */}
+    <div className="border rounded-lg p-4 bg-blue-50">
+      <p className="text-sm text-gray-500 mb-1">Arkadaşlık Kodun</p>
+      <div className="flex items-center gap-2">
+        <code className="font-mono text-sm bg-white border rounded px-2 py-1 flex-1 overflow-auto">
+          {FriendCode || user.uid}
+        </code>
+        <button
+          className="text-sm bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+          onClick={() => navigator.clipboard.writeText(FriendCode || user.uid)}
+        >
+          Kopyala
+        </button>
+      </div>
+    </div>
+
+    {/* Arkadaş Ekle */}
+    <div className="border rounded-lg p-4">
+      <p className="font-semibold mb-2">Arkadaş Ekle</p>
+      <div className="flex gap-2">
+        <input
+          className="border rounded px-3 py-1 flex-1 text-sm"
+          placeholder="Arkadaşlık kodu gir..."
+          value={addCode}
+          onChange={(e) => setAddCode(e.target.value)}
+        />
+        <button
+          className="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600"
+          onClick={sendFriendReq}
+        >
+          Gönder
+        </button>
+      </div>
+      {addError && <p className="text-red-500 text-xs mt-1">{addError}</p>}
+      {addSuccess && <p className="text-green-500 text-xs mt-1">{addSuccess}</p>}
+    </div>
+
+    {/* Gelen İstekler */}
+    {Object.keys(FriendReqs).length > 0 && (
+      <div className="border rounded-lg p-4">
+        <p className="font-semibold mb-2">Gelen İstekler</p>
+        <div className="flex flex-col gap-2">
+          {Object.entries(FriendReqs).map(([uid, name]) => (
+            <div key={uid} className="flex items-center justify-between bg-gray-50 rounded px-3 py-2">
+              <span className="text-sm">{String(name)}</span>
+              <div className="flex gap-2">
+                <button
+                  className="text-xs bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
+                  onClick={() => acceptFriendReq(uid, String(name))}
+                >
+                  Kabul
+                </button>
+                <button
+                  className="text-xs bg-red-400 text-white px-2 py-1 rounded hover:bg-red-500"
+                  onClick={() => rejectFriendReq(uid)}
+                >
+                  Reddet
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+
+    {/* Arkadaş Listesi */}
+    <div className="border rounded-lg p-4">
+      <p className="font-semibold mb-2">Arkadaşlarım ({Object.keys(Friends).length})</p>
+      {Object.keys(Friends).length === 0 ? (
+        <p className="text-sm text-gray-400">Henüz arkadaşın yok.</p>
+      ) : (
+        <div className="flex flex-col gap-2">
+          {Object.entries(Friends).map(([uid, name]) => (
+            <div key={uid} className="flex items-center gap-3 bg-gray-50 rounded px-3 py-2">
+              <Avatar
+                label={String(name).charAt(0).toUpperCase()}
+                shape="circle"
+                size="normal"
+              />
+              <span className="text-sm">{String(name)}</span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+
+  </div>
         </TabPanel>
       </TabView>
     </div>
