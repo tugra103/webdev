@@ -80,6 +80,7 @@ export default function Page() {
   { label: "Mesaj", sub: "Yakında", icon: "💬", href: "#", bg: "bg-purple-50" },
 ].map((a) => {
   return (
+    //commit olsun diye var bu comment
     <a
       key={a.label}
       href={a.href}
