@@ -1,72 +1,122 @@
 "use client";
-
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "@/comporents/navbar";
-import { useState } from "react";
-import {Menu} from "primereact/menu"
-import { ProgressSpinner } from 'primereact/progressspinner';
-        
-export default function Page() {
-  const { user, loading } = useAuth();
-  const router= useRouter()
+import { ProgressSpinner } from "primereact/progressspinner";
+import "primereact/resources/themes/lara-light-blue/theme.css";
+import "primereact/resources/primereact.min.css";
 
-  if (loading) return <ProgressSpinner /> // veya <Spinner />  ← BU OLMAZSA refresh'te user=null görür ve redirect eder
-  /* 
-  
-      <a className="flex align-items-center p-menuitem-link" style={{ gap: "10px" }} href={item.url ?? ""}>
-        <span className={item.icon} />
-        <span style={{ fontFamily: "Syne, sans-serif" }}>{item.label}</span>
-        {item.badge && <Badge value={item.badge} />}
-        {item.shortcut && <span className="shortcut-pill">{item.shortcut}</span>}
-      </a>  
-  
-  */ 
-  if (!user) router.push("/webdev/login/sign-in");
-const items = [
-  {
-    name: "Ürün 1",
-    url: "/urun-1",
-    imgurl: "https://example.com/img1.jpg"
-  },
-  {
-    name: "Ürün 2",
-    url: "/urun-2",
-    imgurl: "https://example.com/img2.jpg"
-  }
+const games = [
+  { name: "Oyun 1", url: "/webdev/main/games/game1", imgurl: "https://picsum.photos/seed/game1/400/200", category: "Aksiyon" },
+  { name: "Oyun 2", url: "/webdev/main/games/game2", imgurl: "https://picsum.photos/seed/game2/400/200", category: "Bulmaca" },
+  { name: "Oyun 3", url: "/webdev/main/games/game3", imgurl: "https://picsum.photos/seed/game3/400/200", category: "Aksiyon" },
+  { name: "Oyun 4", url: "/webdev/main/games/game4", imgurl: "https://picsum.photos/seed/game4/400/200", category: "Strateji" },
 ];
 
-const itemRenderer = (item: any) => (
-  <a
-    href={item.url ?? ""}
-    className="flex flex-col p-menuitem-link border border-gray-200 rounded-lg overflow-hidden p-2 gap-2 no-underline w-full"
-  >
-    <div className="self-start">
-      <span>{item.name}</span>
+export default function Page() {
+  const { user, loading } = useAuth();
+  const router = useRouter();
+  const [search, setSearch] = useState("");
+  const [activeCategory, setActiveCategory] = useState("Tümü");
+
+  useEffect(() => {
+    if (!loading && !user) router.push("/webdev/login/sign-in");
+  }, [user, loading]);
+
+  if (loading || !user) return (
+    <div className="flex h-screen items-center justify-center">
+      <ProgressSpinner />
     </div>
-    <img
-      src={item.imgurl}
-      className="w-full object-cover rounded-md block"
-    />
-  </a>
-);
-// items array'ine template ekle
-const menuItems = items.map(item => ({
-  ...item,
-  template: () => itemRenderer(item)
-}));
+  );
 
-// Component içinde kullan
+  const categories = ["Tümü", ...Array.from(new Set(games.map((g) => g.category)))];
 
-    return (
-    <div className="theme1">
+  const filtered = games.filter((g) => {
+    const matchSearch = g.name.toLowerCase().includes(search.toLowerCase());
+    const matchCat = activeCategory === "Tümü" || g.category === activeCategory;
+    return matchSearch && matchCat;
+  });
+
+  return (
+    <div className="min-h-screen bg-gray-50">
       <Navbar />
-      <div className="w-full h-full">
-        <div className="w-full flex flex-col gap-2 overflow-y-auto">
-          {items.map((item) => itemRenderer(item))}
+      <div className="max-w-4xl mx-auto px-4 py-8">
+
+        {/* Başlık */}
+        <div className="mb-6">
+          <h1 className="text-2xl font-semibold">Oyunlar</h1>
+          <p className="text-sm text-gray-400 mt-1">{games.length} oyun mevcut</p>
         </div>
+
+        {/* Arama */}
+        <div className="relative mb-4">
+          <svg className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+          <input
+            type="text"
+            placeholder="Oyun ara..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
+          />
+        </div>
+
+        {/* Kategori filtreleri */}
+        <div className="flex gap-2 mb-6 flex-wrap">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`px-4 py-1.5 rounded-full text-sm border transition-colors ${
+                activeCategory === cat
+                  ? "bg-blue-500 text-white border-blue-500"
+                  : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        {/* Oyun grid */}
+        {filtered.length === 0 ? (
+          <div className="text-center py-16 text-gray-300">
+            <svg className="mx-auto mb-3" width="40" height="40" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+            </svg>
+            <p className="text-sm">Sonuç bulunamadı</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {filtered.map((game) => (
+              <a
+                key={game.name}
+                href={game.url}
+                className="group bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow no-underline"
+              >
+                <div className="relative overflow-hidden">
+                  <img
+                    src={game.imgurl}
+                    alt={game.name}
+                    className="w-full h-36 object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <span className="absolute top-2 right-2 text-xs bg-black bg-opacity-50 text-white px-2 py-0.5 rounded-full">
+                    {game.category}
+                  </span>
+                </div>
+                <div className="p-3 flex items-center justify-between">
+                  <span className="text-sm font-medium text-gray-800">{game.name}</span>
+                  <svg width="14" height="14" fill="none" stroke="#9ca3af" strokeWidth="2" viewBox="0 0 24 24">
+                    <path d="m9 18 6-6-6-6"/>
+                  </svg>
+                </div>
+              </a>
+            ))}
+          </div>
+        )}
       </div>
     </div>
-    );
+  );
 }
