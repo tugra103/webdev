@@ -9,7 +9,6 @@ import "primereact/resources/primereact.min.css";
 
 // games array'ini ve useState'i şununla değiştir:
 
-const [games, setGames] = useState<{name: string; imgurl: string; url: string; category: string}[]>([]);
 
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/app/firebase";
@@ -17,6 +16,7 @@ import { db } from "@/app/firebase";
 
 
 export default function Page() {
+  const [games, setGames] = useState<{name: string; imgurl: string; url: string; category: string}[]>([]);
   const { user, loading } = useAuth();
   const router = useRouter();
   const [search, setSearch] = useState("");
