@@ -188,63 +188,112 @@ const changeUserData = async (data: any) => {
       <Navbar />
       <TabView>
         <TabPanel header="Genel">
-          <div className="flex min-h-screen justify-center items-center h-full w-full">
-<div className="flex items-center rounded-md flex-col gap-4 border-solid outline-2 outline-blue-500 h-fit w-fit">
-  <input
-    type="file"
-    ref={fileInputRef}
-    onChange={handleFileChange}
-    className="hidden"
-    accept="image/*"
-  />
+  <div className="flex min-h-screen justify-center items-start pt-12 px-4">
+    <div className="w-full max-w-sm flex flex-col gap-4">
 
-  <div
-    className="cursor-pointer relative w-fit"
-    onClick={() => fileInputRef.current?.click()}
-  >
-    <Avatar
-      image={photoURL || "https://primefaces.org/cdn/primereact/images/avatar/default.png"}
-      shape="circle"
-      size="xlarge"
-    />
-    <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 rounded-full opacity-0 hover:opacity-100 transition">
-      <span className="text-white text-xs">
-        {uploading ? "Yükleniyor..." : "Değiştir"}
-      </span>
+      {/* Profil Kartı */}
+      <div className="bg-white border border-gray-200 rounded-2xl p-6 flex flex-col items-center gap-4 shadow-sm">
+        <input
+          type="file"
+          ref={fileInputRef}
+          onChange={handleFileChange}
+          className="hidden"
+          accept="image/*"
+        />
+
+        {/* Avatar */}
+        <div
+          className="cursor-pointer relative"
+          onClick={() => fileInputRef.current?.click()}
+        >
+          <img
+            src={photoURL || "https://primefaces.org/cdn/primereact/images/avatar/default.png"}
+            className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-md"
+          />
+          <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-full opacity-0 hover:opacity-100 transition-opacity">
+            <span className="text-white text-xs font-medium">
+              {uploading ? "Yükleniyor..." : "Değiştir"}
+            </span>
+          </div>
+        </div>
+
+        {/* İsim */}
+        <div className="text-center">
+          <p className="text-xl font-semibold text-gray-800">{user.displayName ?? "İsimsiz"}</p>
+          <p className="text-xs text-gray-400 mt-1 font-mono truncate max-w-xs">{user.email}</p>
+        </div>
+      </div>
+
+      {/* Ayarlar Kartı */}
+      <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
+        
+        {/* İsim Değiştir */}
+        <button
+          className="w-full flex items-center justify-between px-5 py-4 hover:bg-gray-50 transition-colors border-b border-gray-100"
+          onClick={() => {
+            const newName = prompt("Yeni Ad:", user.displayName ?? "");
+            if (newName) {
+              updateProfile(user, { displayName: newName });
+              changeUserData({ displayName: newName, friendcode: user.uid });
+            }
+          }}
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center">
+              <svg width="16" height="16" fill="none" stroke="#3b82f6" strokeWidth="2" viewBox="0 0 24 24">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+              </svg>
+            </div>
+            <span className="text-sm text-gray-700">Görünen Ad</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-gray-400">{user.displayName}</span>
+            <svg width="16" height="16" fill="none" stroke="#9ca3af" strokeWidth="2" viewBox="0 0 24 24">
+              <path d="m9 18 6-6-6-6"/>
+            </svg>
+          </div>
+        </button>
+
+        {/* Arkadaşlık Kodu */}
+        <button
+          className="w-full flex items-center justify-between px-5 py-4 hover:bg-gray-50 transition-colors"
+          onClick={() => navigator.clipboard.writeText(FriendCode || user.uid)}
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-full bg-green-50 flex items-center justify-center">
+              <svg width="16" height="16" fill="none" stroke="#22c55e" strokeWidth="2" viewBox="0 0 24 24">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+              </svg>
+            </div>
+            <span className="text-sm text-gray-700">Arkadaşlık Kodu</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-gray-400 font-mono truncate max-w-28">{(FriendCode || user.uid).slice(0, 10)}...</span>
+            <svg width="16" height="16" fill="none" stroke="#9ca3af" strokeWidth="2" viewBox="0 0 24 24">
+              <rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+            </svg>
+          </div>
+        </button>
+      </div>
+
+      {/* Çıkış Kartı */}
+      <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
+        <button
+          className="w-full flex items-center gap-3 px-5 py-4 hover:bg-red-50 transition-colors"
+          onClick={() => signOut(getAuth())}
+        >
+          <div className="w-8 h-8 rounded-full bg-red-50 flex items-center justify-center">
+            <svg width="16" height="16" fill="none" stroke="#ef4444" strokeWidth="2" viewBox="0 0 24 24">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+          </div>
+          <span className="text-sm text-red-500 font-medium">Çıkış Yap</span>
+        </button>
+      </div>
+
     </div>
   </div>
-
-    
-
-  <div className="text-center">
-    <p className="font-semibold text-lg">{user.displayName}</p>
-    <button
-      className="text-sm text-blue-500 hover:underline mt-1"
-      onClick={() => {
-        const newName = prompt("Yeni Ad:", user.displayName ?? "");
-        if (newName) {
-          updateProfile(user, { displayName: newName });
-          changeUserData({ 
-            displayName: newName,
-            friendcode: user.uid
-          })
-        }
-
-      }}
-    >
-      Değiştir
-    </button>
-      <button type="button" onClick={()=>{
-    const auth = getAuth();
-    signOut(auth)
-  }}>Çıkış Yap</button>
-  </div>
-</div>
-    
-    
-    
-          </div>
-        </TabPanel>
+</TabPanel>
         <TabPanel header="Arkadaşlar">
              <div className="p-4 flex flex-col gap-6 max-w-lg mx-auto">
 
