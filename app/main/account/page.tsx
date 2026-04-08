@@ -186,8 +186,8 @@ const changeUserData = async (data: any) => {
   return (
     <div>
       <Navbar />
-      <TabView>
-        <TabPanel header="Genel">
+      <TabView className="theme1">
+        <TabPanel header="Genel" className="theme1">
   <div className="flex min-h-screen justify-center items-start pt-12 px-4">
     <div className="w-full max-w-sm flex flex-col gap-4">
 
@@ -294,7 +294,7 @@ const changeUserData = async (data: any) => {
     </div>
   </div>
 </TabPanel>
-        <TabPanel header="Arkadaşlar">
+        <TabPanel header="Arkadaşlar" className="theme1">
              <div className="p-4 flex flex-col gap-6 max-w-lg mx-auto">
 
     {/* Kendi Kodu */}
