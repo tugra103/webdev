@@ -7,12 +7,26 @@ import { ProgressSpinner } from "primereact/progressspinner";
 import "primereact/resources/themes/lara-light-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 
-const games = [
-  { name: "Oyun 1", url: "/webdev/main/games/game1", imgurl: "https://picsum.photos/seed/game1/400/200", category: "Aksiyon" },
-  { name: "Oyun 2", url: "/webdev/main/games/game2", imgurl: "https://picsum.photos/seed/game2/400/200", category: "Bulmaca" },
-  { name: "Oyun 3", url: "/webdev/main/games/game3", imgurl: "https://picsum.photos/seed/game3/400/200", category: "Aksiyon" },
-  { name: "Oyun 4", url: "/webdev/main/games/game4", imgurl: "https://picsum.photos/seed/game4/400/200", category: "Strateji" },
-];
+// games array'ini ve useState'i şununla değiştir:
+
+const [games, setGames] = useState<{name: string; imgurl: string; url: string; category: string}[]>([]);
+
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "@/app/firebase";
+
+// useEffect:
+useEffect(() => {
+  if (!user) return;
+  getDocs(collection(db, "games")).then((snap) => {
+    const list = snap.docs.map((doc) => ({
+      name: doc.id,
+      imgurl: doc.data().img ?? "",
+      url: doc.data().iframeurl ?? "",
+      category: doc.data().category ?? "Diğer",
+    }));
+    setGames(list);
+  });
+}, [user]);
 
 export default function Page() {
   const { user, loading } = useAuth();
@@ -39,7 +53,7 @@ export default function Page() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen">
       <Navbar />
       <div className="max-w-4xl mx-auto px-4 py-8">
 
