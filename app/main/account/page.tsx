@@ -43,6 +43,11 @@ export default function Page() {
   useEffect(() => {
     if (!loading && !user) router.push("/webdev/login/sign-in");
   }, [user, loading]);
+  function unicodeToBase64(str) {
+    const bytes = new TextEncoder().encode(str);
+    const binString = String.fromCodePoint(...bytes);
+    return btoa(binString);
+  }
   const compressImage = (file: File): Promise<string> => {
   return new Promise((resolve) => {
     const reader = new FileReader();
@@ -134,7 +139,14 @@ export default function Page() {
       className="text-sm text-blue-500 hover:underline mt-1"
       onClick={() => {
         const newName = prompt("Yeni Ad:", user?.displayName ?? "");
-        if (newName) updateProfile(user, { displayName: newName });
+        if (newName) {
+          updateProfile(user, { displayName: newName });
+          await setDoc(doc(db, "users", user.uid), { 
+            displayName: newName,
+            friendcode: user.uid
+          }, { merge: true });
+        }
+
       }}
     >
       Değiştir
