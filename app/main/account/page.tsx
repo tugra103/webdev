@@ -8,7 +8,7 @@ import { Avatar } from "primereact/avatar";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "@/app/firebase";
 import { updateProfile, getAuth, signOut } from "firebase/auth";
-
+import { TabView, TabPanel } from 'primereact/tabview';
 import { ProgressSpinner } from 'primereact/progressspinner';
         
 import "primereact/resources/themes/lara-light-blue/theme.css";
@@ -22,12 +22,21 @@ export default function Page() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
   const [photoURL, setPhotoURL] = useState("");
+  const [FriendCode, setFriendCode] = useState("");
+  const [FriendReqs, setFriendReqs] =useState({})
+  const [Friends, setFriends] =useState({})
   
   // ✅ Sayfa açılınca Firestore'dan fotoğrafı çek
   useEffect(() => {
     if (!user) return;
     getDoc(doc(db, "users", user.uid)).then((snap) => {
-      if (snap.exists()) setPhotoURL(snap.data().photoURL ?? "");
+      if (snap.exists()) {
+        data=snap.data();
+        setPhotoURL(data.photoURL ?? "");
+        setFriendCode(data.friendcode ?? "")
+        setFriendReqs(data.friendreqs ?? {})
+        setFriends(data.friends ?? {})
+      }
     });
   }, [user]);
 
@@ -89,7 +98,9 @@ export default function Page() {
   return (
     <div>
       <Navbar />
-      <div className="flex min-h-screen justify-center items-center h-full w-full">
+      <TabView>
+        <TabPanel header="Genel">
+          <div className="flex min-h-screen justify-center items-center h-full w-full">
 <div className="flex items-center rounded-md flex-col gap-4 border-solid outline-2 outline-blue-500 h-fit w-fit">
   <input
     type="file"
@@ -134,7 +145,15 @@ export default function Page() {
   }}>Çıkış Yap</button>
   </div>
 </div>
+    
+    
+    
+          </div>
+        </TabPanel>
+        <TabPanel header="Arkadaşlar">
+            
+        </TabPanel>
+      </TabView>
     </div>
-</div>
   );
 }
