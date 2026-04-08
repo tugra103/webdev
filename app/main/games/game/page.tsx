@@ -64,7 +64,7 @@ function GamePage() {
       <div className="flex flex-col items-center justify-center h-96 gap-3">
         <p className="text-xl font-semibold text-gray-400">Oyun bulunamadı</p>
         <button
-          onClick={() => router.push("/webdev/main/games")}
+          onClick={() => router.push("/main/games")}
           className="text-sm text-blue-500 hover:underline"
         >
           ← Oyunlara dön
