@@ -39,7 +39,7 @@ const sendFriendReq = async () => {
   setAddError("");
   setAddSuccess("");
   const targetUid = addCode.trim();
-  if (!targetUid || targetUid === user?.uid) {
+  if (!targetUid || targetUid === user.uid) {
     setAddError("Geçersiz kod.");
     return;
   }
@@ -61,7 +61,7 @@ const sendFriendReq = async () => {
   await setDoc(targetRef, {
     friendreqs: {
       ...targetSnap.data().friendreqs,
-      [user?.uid]: user?.displayName ?? user?.uid,
+      [user.uid]: user.displayName ?? user.uid,
     }
   }, { merge: true });
 
@@ -76,7 +76,7 @@ const acceptFriendReq = async (senderUid: string, senderName: string) => {
   delete newReqs[senderUid];
 
   // Kendi dokümanını güncelle
-  await setDoc(doc(db, "users", user?.uid), {
+  await setDoc(doc(db, "users", user.uid), {
     friends: newFriends,
     friendreqs: newReqs,
   }, { merge: true });
@@ -88,7 +88,7 @@ const acceptFriendReq = async (senderUid: string, senderName: string) => {
     await setDoc(senderRef, {
       friends: {
         ...senderSnap.data().friends,
-        [user?.uid]: user?.displayName ?? user?.uid,
+        [user.uid]: user.displayName ?? user.uid,
       }
     }, { merge: true });
   }
@@ -101,7 +101,7 @@ const rejectFriendReq = async (senderUid: string) => {
   const newReqs = { ...FriendReqs };
   delete newReqs[senderUid];
 
-  await setDoc(doc(db, "users", user?.uid), {
+  await setDoc(doc(db, "users", user.uid), {
     friendreqs: newReqs,
   }, { merge: true });
 
@@ -218,11 +218,11 @@ const changeUserData = async (data: any) => {
     
 
   <div className="text-center">
-    <p className="font-semibold text-lg">{user?.displayName}</p>
+    <p className="font-semibold text-lg">{user.displayName}</p>
     <button
       className="text-sm text-blue-500 hover:underline mt-1"
       onClick={() => {
-        const newName = prompt("Yeni Ad:", user?.displayName ?? "");
+        const newName = prompt("Yeni Ad:", user.displayName ?? "");
         if (newName) {
           updateProfile(user, { displayName: newName });
           changeUserData({ 
