@@ -160,6 +160,7 @@ const rejectFriendReq = async (senderUid: string) => {
   });
 };
 const changeUserData = async (data: any) => {
+  if (!user) return;
   await setDoc(doc(db, "users", user.uid), data, { merge: true });
 };
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
