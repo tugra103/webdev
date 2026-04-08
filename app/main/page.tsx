@@ -72,7 +72,7 @@ export default function Page() {
         </div>
 
         {/* Stat kartları */}
-        <div className="grid grid-cols-3 gap-3 mb-5 bg-white">
+        <div className="grid grid-cols-3 gap-3 mb-5">
 {[
   { label: "Profil", sub: "Düzenle", icon: "👤", href: "/webdev/main/account", bg: "bg-blue-50" },
   { label: "Arkadaş", sub: "Ekle", icon: "➕", href: "/webdev/main/account", bg: "bg-green-50" },
@@ -84,7 +84,7 @@ export default function Page() {
     <a
       key={a.label}
       href={a.href}
-      className="flex flex-col items-start gap-1 p-3 rounded-xl border border-gray-100 hover:bg-gray-50 transition-colors"
+      className="flex flex-col items-start gap-1 p-3 rounded-xl border border-gray-100 hover:bg-gray-50 transition-colors bg-white"
     >
       <div className={`w-8 h-8 rounded-lg ${a.bg} flex items-center justify-center text-base`}>
         {a.icon}
