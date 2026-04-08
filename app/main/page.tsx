@@ -53,7 +53,7 @@ export default function Page() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen">
       <Navbar />
       <div className="max-w-4xl mx-auto px-4 py-8">
 
@@ -123,9 +123,9 @@ export default function Page() {
             <p className="text-sm font-medium text-gray-500 mb-4">Hızlı işlemler</p>
             <div className="grid grid-cols-2 gap-2">
               {[
-                { label: "Profil", sub: "Düzenle", icon: "👤", href: "/webdev/profile", bg: "bg-blue-50" },
-                { label: "Arkadaş", sub: "Ekle", icon: "➕", href: "/webdev/profile", bg: "bg-green-50" },
-                { label: "İstekler", sub: `${Object.keys(friendReqs).length} bekliyor`, icon: "🔔", href: "/webdev/profile", bg: "bg-amber-50" },
+                { label: "Profil", sub: "Düzenle", icon: "👤", href: "/webdev/main/account", bg: "bg-blue-50" },
+                { label: "Arkadaş", sub: "Ekle", icon: "➕", href: "/webdev/main/account", bg: "bg-green-50" },
+                { label: "İstekler", sub: `${Object.keys(friendReqs).length} bekliyor`, icon: "🔔", href: "/webdev/main/account", bg: "bg-amber-50" },
                 { label: "Mesaj", sub: "Yakında", icon: "💬", href: "#", bg: "bg-purple-50" },
               ].map((a) => (
                 <a
