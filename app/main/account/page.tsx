@@ -128,11 +128,6 @@ const rejectFriendReq = async (senderUid: string) => {
   useEffect(() => {
     if (!loading && !user) router.push("/webdev/login/sign-in");
   }, [user, loading]);
-  function unicodeToBase64(str) {
-    const bytes = new TextEncoder().encode(str);
-    const binString = String.fromCodePoint(...bytes);
-    return btoa(binString);
-  }
   const compressImage = (file: File): Promise<string> => {
   return new Promise((resolve) => {
     const reader = new FileReader();
