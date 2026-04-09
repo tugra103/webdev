@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Navbar from "@/comporents/navbar";
 import { collection, getDocs, doc, setDoc, deleteDoc } from "firebase/firestore";
-import { db } from "@/app/firebase";
+import { db, app} from "@/app/firebase";
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { initializeApp, deleteApp } from "firebase/app";
 import { ProgressSpinner } from "primereact/progressspinner";
@@ -60,8 +60,7 @@ export default function Page() {
     }
     setSaving(true);
     try {
-      const secondaryApp = initializeApp(firebaseConfig, "Secondary_" + Date.now());
-      const secondaryAuth = getAuth(secondaryApp);
+      const secondaryAuth = getAuth(app);
 
       const { user: created } = await createUserWithEmailAndPassword(
         secondaryAuth, newUser.email, newUser.password
