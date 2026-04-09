@@ -1,20 +1,24 @@
 // pages/index.tsx
 "use client";
-import {useVisitorData} from '@fingerprint/react'
-
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext"; // your auth hook
+import { ProgressSpinner } from "primereact/progressspinner";
 export default function Home() {
-  const {isLoading, error, data, getData} = useVisitorData(
-    {immediate: true}
-  )
+  const router = useRouter();
+  const { user, isLoading } = useAuth(); // however you get the user
 
-  return (
-    <div>
-      <button onClick={() => getData()}>
-        Reload data
-      </button>
-      <p>VisitorId: {isLoading ? 'Loading...' : data?.visitor_id}</p>
-      <p>Full visitor data:</p>
-      <pre>{error ? error.message : JSON.stringify(data, null, 2)}</pre>
-    </div>
-  )
+  useEffect(() => {
+    if (isLoading) return;
+    if (!user) {
+      router.push("/login/sign-in");
+    } else {
+      router.push("/main");
+    }
+  }, [user, isLoading, router]);
+
+  // Render a fallback while redirecting
+  return (<div className="flex h-screen items-center justify-center">
+            <ProgressSpinner />
+          </div>);
 }
