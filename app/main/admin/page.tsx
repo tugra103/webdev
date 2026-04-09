@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Navbar from "@/comporents/navbar";
 import { collection, getDocs, doc, setDoc, deleteDoc } from "firebase/firestore";
-import { db, firebaseConfig } from "@/app/firebase";
+import { db } from "@/app/firebase";
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { initializeApp, deleteApp } from "firebase/app";
 import { ProgressSpinner } from "primereact/progressspinner";
