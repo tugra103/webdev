@@ -84,7 +84,7 @@ function GamePage() {
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
               <button
-                onClick={() => router.push("/webdev/main/games")}
+                onClick={() => router.push("/main/games")}
                 className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
               >
                 <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
