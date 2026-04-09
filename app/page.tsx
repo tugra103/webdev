@@ -6,10 +6,10 @@ import { useAuth } from "@/context/AuthContext"; // your auth hook
 import { ProgressSpinner } from "primereact/progressspinner";
 export default function Home() {
   const router = useRouter();
-  const { user, isLoading } = useAuth(); // however you get the user
+  const { user, loading } = useAuth(); // however you get the user
 
   useEffect(() => {
-    if (isLoading) return;
+    if (loading) return;
     if (!user) {
       router.push("/login/sign-in");
     } else {
