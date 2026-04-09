@@ -15,7 +15,7 @@ export default function Home() {
     } else {
       router.push("/main");
     }
-  }, [user, isLoading, router]);
+  }, [user, loading, router]);
 
   // Render a fallback while redirecting
   return (<div className="flex h-screen items-center justify-center">
