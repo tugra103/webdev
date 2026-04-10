@@ -35,7 +35,7 @@ useEffect(() => {
   });
 }, [user]);
   useEffect(() => {
-    if (!loading && !user) router.push("/webdev/login/sign-in");
+    if (!loading && !user) router.push("/login/sign-in");
   }, [user, loading]);
 
   if (loading || !user) return (

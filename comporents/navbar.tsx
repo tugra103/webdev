@@ -9,6 +9,7 @@ import { Avatar } from "primereact/avatar";
 import { useRouter } from "next/navigation";
 
 const Navbar = () => {
+  const [photoURL, setPhotoURL] = useState("");
   const lightStyles = `
     @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600&display=swap');
 
@@ -97,7 +98,15 @@ const Navbar = () => {
       transform: scale(1.06) !important;
     }
   `;
-
+    useEffect(() => {
+      if (!user) return;
+      getDoc(doc(db, "users", user.uid)).then((snap) => {
+        if (snap.exists()) {
+          const data = snap.data();
+          setPhotoURL(data.photoURL ?? "");
+        }
+      });
+    }, [user]);
   const itemRenderer = (item: any) => (
     <a className="flex align-items-center p-menuitem-link" style={{ gap: "10px" }} href={item.url ?? ""}>
       <span className={item.icon} />
@@ -149,7 +158,7 @@ const Navbar = () => {
       <div className="luxury-avatar">
         <a href="/webdev/main/account">
           <Avatar
-            image={user?.photoURL ?? "https://primefaces.org/cdn/primereact/images/avatar/default.png"}
+            image={photoURL ?? "https://primefaces.org/cdn/primereact/images/avatar/default.png"}
             shape="circle"
           />
         </a>

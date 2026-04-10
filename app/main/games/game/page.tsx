@@ -31,7 +31,7 @@ function GamePage() {
   const [fullscreen, setFullscreen] = useState(false);
     
   useEffect(() => {
-    if (!loading && !user) router.push("/webdev/login/sign-in");
+    if (!loading && !user) router.push("/login/sign-in");
   }, [user, loading]);
 
   useEffect(() => {

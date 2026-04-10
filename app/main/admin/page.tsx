@@ -32,8 +32,8 @@ export default function Page() {
   const [msg, setMsg] = useState({ text: "", type: "success" });
 
   useEffect(() => {
-    if (!loading && !user) router.push("/webdev/login/sign-in");
-    if (!loading && user && !ADMIN_UIDS.includes(user.uid)) router.push("/webdev/main");
+    if (!loading && !user) router.push("/login/sign-in");
+    if (!loading && user && !ADMIN_UIDS.includes(user.uid)) router.push("/main");
   }, [user, loading]);
 
   useEffect(() => {

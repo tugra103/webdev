@@ -126,7 +126,7 @@ const rejectFriendReq = async (senderUid: string) => {
   }, [user]);
 
   useEffect(() => {
-    if (!loading && !user) router.push("/webdev/login/sign-in");
+    if (!loading && !user) router.push("/login/sign-in");
   }, [user, loading]);
   const compressImage = (file: File): Promise<string> => {
   return new Promise((resolve) => {
