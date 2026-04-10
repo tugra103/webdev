@@ -7,6 +7,7 @@ import { InputText } from "primereact/inputtext";
 import { Badge } from "primereact/badge";
 import { Avatar } from "primereact/avatar";
 import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 
 const Navbar = () => {
   const [photoURL, setPhotoURL] = useState("");
