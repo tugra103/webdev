@@ -12,6 +12,8 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/app/firebase";
 
 const Navbar = () => {
+  const { user } = useAuth();
+  const router = useRouter()
   const [photoURL, setPhotoURL] = useState("");
   const lightStyles = `
     @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600&display=swap');
@@ -150,8 +152,7 @@ const Navbar = () => {
       style={{ height: "30px", objectFit: "contain" }}
     />
   );
-  const { user } = useAuth();
-  const router = useRouter()
+
 
   const end = (
     <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
