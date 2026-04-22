@@ -18,6 +18,12 @@ const Navbar = () => {
   const lightStyles = `
     @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600&display=swap');
 
+    .light-nav {
+      padding: 20px 24px;
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+    }
 
     .light-nav .p-menubar {
       width: 100%;
