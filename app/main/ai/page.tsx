@@ -53,29 +53,28 @@ export default function Page() {
 
         {/* Search bar */}
         <div className="flex items-center w-full max-w-xl border border-gray-300 rounded-full px-4 py-2 shadow-sm hover:shadow-md transition-shadow duration-200 focus-within:shadow-md focus-within:border-transparent focus-within:ring-2 focus-within:ring-blue-400">
-          <svg className="w-4 h-4 text-gray-400 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
-          </svg>
-          <input
-            type="text"
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && console.log('search:', value)}
-            placeholder="Ara..."
-            className="flex-1 outline-none text-sm text-gray-700 bg-transparent placeholder-gray-400"
-          />
-          {value && (
-            <button
-              onClick={() => setValue('')}
-              className="text-gray-400 hover:text-gray-600 ml-2"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          )}
-        </div>
-
+  <input
+    type="text"
+    value={value}
+    onChange={(e) => setValue(e.target.value)}
+    onKeyDown={(e) => e.key === 'Enter' && console.log('search:', value)}
+    placeholder="Ara..."
+    className="flex-1 outline-none text-sm text-gray-700 bg-transparent placeholder-gray-400"
+  />
+  {value && (
+    <button
+      onClick={() => setValue('')}
+      className="text-gray-400 hover:text-gray-600 mr-2"
+    >
+      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  )}
+  <svg className="w-4 h-4 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
+  </svg>
+</div>
         {/* Buttons */}
         <div className="flex gap-3">
           <button
