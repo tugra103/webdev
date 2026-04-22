@@ -156,9 +156,6 @@ const Navbar = () => {
 
   const end = (
     <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-      <div className="luxury-search">
-        <InputText placeholder="Search…" type="text" />
-      </div>
       <div className="luxury-avatar">
         <a href="/webdev/main/account">
           <Avatar
