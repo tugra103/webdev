@@ -47,9 +47,9 @@ export default function Page() {
             <div className="flex flex-col items-center justify-center flex-1 gap-6 px-4">
 
                 {/* Logo / Title */}
-                <h1 className="text-5xl font-normal tracking-tight text-gray-700 select-none">
-                    My<span className="text-blue-500">App</span>
-                </h1>
+                <div className="text-5xl font-normal tracking-tight text-gray-700 select-none">
+                    <img src="/webdev/" />
+                </div>
 
                 {/* Search bar */}
                 <div className="flex items-center w-full max-w-xl border border-gray-300 rounded-full px-4 py-2 shadow-sm hover:shadow-md transition-shadow duration-200 focus-within:shadow-md focus-within:border-transparent focus-within:ring-2 focus-within:ring-blue-400">
