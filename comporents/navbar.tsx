@@ -106,7 +106,10 @@ const Navbar = () => {
   const items: any[] = [
     { label: "Ana Sayfa", icon: "pi pi-home", url:"/webdev/main" },
     { label: "Oyunlar", icon: "pi pi-star", url:"/webdev/main/games"},
+    { label: "Donut.Exe", icon: "pi pi-star", url:"/webdev/main/admin"},
+    
     {
+
       label: "Projects",
       icon: "pi pi-search",
       items: [
