@@ -1,9 +1,8 @@
 import React, { ReactElement } from 'react';
 
 interface Chat {
-    username: string;
-    content: ReactElement;
-    img: string;
+    username:  "user" | "assistant" | "system";
+    content: string;
 }
 
 interface MessageProps {
@@ -18,11 +17,6 @@ const Message = ({ chat, user }: MessageProps) => {
         <li className={`flex items-end gap-2 my-3 ${isOwn ? "flex-row-reverse" : "flex-row"}`}>
             {!isOwn && (
                 <div className="flex flex-col items-center gap-1 flex-shrink-0">
-                    <img
-                        src={chat.img}
-                        alt={chat.username}
-                        className="w-8 h-8 rounded-full object-cover ring-2 ring-white shadow-md"
-                    />
                     <span className="text-[10px] text-gray-400 font-medium max-w-[56px] truncate">
                         {chat.username}
                     </span>
