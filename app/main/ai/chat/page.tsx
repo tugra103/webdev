@@ -65,7 +65,7 @@ export default function Page() {
         setChats((prev) => [
             ...prev,
             {
-                role: "assis",
+                role: "assistant",
                 content: <p>{rep.choices?.[0]?.message?.content}</p>,
             },
         ]);
