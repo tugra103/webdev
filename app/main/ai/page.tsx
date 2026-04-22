@@ -17,6 +17,7 @@ import "primereact/resources/primereact.min.css";
 export default function Page() {
   const { user, loading } = useAuth();
   const router = useRouter();
+  const [value, setValue] = useState('');
   const [photoURL, setPhotoURL] = useState("");
   const [dataLoading, setDataLoading] = useState(true);
 
@@ -41,7 +42,7 @@ export default function Page() {
     </div>
   );
   if (!user) return null;
-  const [value, setValue] = useState('');
+  
 
   return (
     <div>
