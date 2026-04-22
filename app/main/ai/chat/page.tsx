@@ -9,7 +9,7 @@ import { ProgressSpinner } from "primereact/progressspinner";
 import "primereact/resources/themes/lara-light-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import Message from "@/comporents/message";
-import OpenRouter from '@openrouter/sdk';
+import { OpenRouter } from '@openrouter/sdk';
 const REACT_INTERNAL_OBJECT_DONT_TOUCH_OR_YOU_WILL_BE_FIRED = "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"
 
 
