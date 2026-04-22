@@ -6,6 +6,8 @@ import Navbar from "@/comporents/navbar";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/app/firebase";
 
+
+import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
         
 import { ProgressSpinner } from "primereact/progressspinner";
