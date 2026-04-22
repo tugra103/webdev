@@ -22,7 +22,7 @@ interface Chat {
     content: ReactElement;
 }
 
-export default function Page() {
+export default async function Page() {
     const { user, loading } = useAuth();
     const router = useRouter();
     const [value, setValue] = useState<string>('');
