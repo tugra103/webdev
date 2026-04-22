@@ -27,8 +27,6 @@ export default function Page() {
     getDoc(doc(db, "users", user.uid)).then((snap) => {
       if (snap.exists()) {
         const data = snap.data();
-        setFriends(data.friends ?? {});
-        setFriendReqs(data.friendreqs ?? {});
         setPhotoURL(data.photoURL ?? "");
       }
       setDataLoading(false);
