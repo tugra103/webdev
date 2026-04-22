@@ -9,11 +9,17 @@ import { ProgressSpinner } from "primereact/progressspinner";
 import "primereact/resources/themes/lara-light-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import Message from "@/comporents/message";
+import OpenRouter from '@openrouter/sdk';
+const REACT_INTERNAL_OBJECT_DONT_TOUCH_OR_YOU_WILL_BE_FIRED = "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"
+
+
+const client = new OpenRouter({
+    apiKey: REACT_INTERNAL_OBJECT_DONT_TOUCH_OR_YOU_WILL_BE_FIRED
+});
 
 interface Chat {
-    username: string;
+    role: string;
     content: ReactElement;
-    img: string;
 }
 
 export default function Page() {
@@ -23,7 +29,7 @@ export default function Page() {
     const [photoURL, setPhotoURL] = useState<string>("");
     const [username, setUsername] = useState<string>("");
     const [dataLoading, setDataLoading] = useState<boolean>(true);
-    const [chats, setChats] = useState<Chat[]>([]);
+    const [chats, setChats] = useState<Chat[]>([{ content: "Sen bir yapayzekasın. Adın donut.exe", role: "system" }]);
     const chatsRef = useRef<HTMLUListElement>(null);
 
     const scrollToBot = (): void => {
@@ -43,13 +49,28 @@ export default function Page() {
         setChats((prev) => [
             ...prev,
             {
-                username: username,
+                role: "user",
                 content: <p>{value}</p>,
-                img: photoURL,
             },
         ]);
 
+
         setValue("");
+        let rep = await client.chat.send({
+            model: "openai/gpt-oss-120b:free",
+            messages: chats,
+            temperature: 0.7, // ← Type-checked
+            stream: false     // ← Response type changes based on this
+        });
+        setChats((prev) => [
+            ...prev,
+            {
+                role: "assis",
+                content: <p>{rep.choices?.[0]?.message?.content}</p>,
+            },
+        ]);
+
+
     };
 
     useEffect(() => {
