@@ -10,18 +10,23 @@ import "primereact/resources/themes/lara-light-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import Message from "@/comporents/message";
 
+interface Chat {
+    username: string;
+    content: JSX.Element;
+    img: string;
+}
 
 export default function Page() {
     const { user, loading } = useAuth();
     const router = useRouter();
-    const [value, setValue] = useState('');
-    const [photoURL, setPhotoURL] = useState("");
-    const [username, setUsername] = useState("");
-    const [dataLoading, setDataLoading] = useState(true);
-    const [chats, setChats] = useState([]);
-    const chatsRef = useRef(null);
+    const [value, setValue] = useState<string>('');
+    const [photoURL, setPhotoURL] = useState<string>("");
+    const [username, setUsername] = useState<string>("");
+    const [dataLoading, setDataLoading] = useState<boolean>(true);
+    const [chats, setChats] = useState<Chat[]>([]);
+    const chatsRef = useRef<HTMLUListElement>(null);
 
-    const scrollToBot = () => {
+    const scrollToBot = (): void => {
         if (chatsRef.current) {
             chatsRef.current.scrollTop = chatsRef.current.scrollHeight;
         }
@@ -31,16 +36,16 @@ export default function Page() {
         scrollToBot();
     }, [chats]);
 
-    const submitMessage = (e) => {
+    const submitMessage = (e?: React.MouseEvent | React.KeyboardEvent): void => {
         e?.preventDefault();
         if (!value.trim()) return;
 
         setChats((prev) => [
             ...prev,
             {
-                username: {username},
+                username: username,
                 content: <p>{value}</p>,
-                img: {photoURL},
+                img: photoURL,
             },
         ]);
 
@@ -57,7 +62,7 @@ export default function Page() {
             if (snap.exists()) {
                 const data = snap.data();
                 setPhotoURL(data.photoURL ?? "");
-                setUsername(data?.displayName ?? "")
+                setUsername(data?.displayName ?? "");
             }
             setDataLoading(false);
         });
@@ -75,7 +80,7 @@ export default function Page() {
         <div>
             <Navbar />
             <ul className="chats" ref={chatsRef}>
-                {chats.map((chat, index) => (
+                {chats.map((chat: Chat, index: number) => (
                     <Message key={index} chat={chat} user={username} />
                 ))}
             </ul>
@@ -83,8 +88,8 @@ export default function Page() {
                 <input
                     type="text"
                     value={value}
-                    onChange={(e) => setValue(e.target.value)}
-                    onKeyDown={(e) => e.key === 'Enter' && submitMessage(e)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value)}
+                    onKeyDown={(e: React.KeyboardEvent) => e.key === 'Enter' && submitMessage(e)}
                     placeholder="Birşeyler Yaz..."
                     className="flex-1 outline-none text-sm text-gray-700 bg-transparent placeholder-gray-400"
                 />
