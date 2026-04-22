@@ -18,7 +18,7 @@ const client = new OpenRouter({
 });
 
 interface Chat {
-    role: string;
+    role:  "user" | "assistant" | "system";
     content: string;
 }
 
