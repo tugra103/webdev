@@ -10,9 +10,11 @@ import "primereact/resources/themes/lara-light-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import Message from "@/comporents/message";
 
+import { ReactElement } from "react";
+
 interface Chat {
     username: string;
-    content: JSX.Element;
+    content: ReactElement;
     img: string;
 }
 
