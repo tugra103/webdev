@@ -80,21 +80,6 @@ export default function Page() {
                         </svg>
                     </button>
                 </div>
-                {/* Buttons */}
-                <div className="flex gap-3">
-                    <button
-                        onClick={() => console.log('search:', value)}
-                        className="px-4 py-2 text-sm text-gray-700 bg-gray-100 hover:bg-gray-200 hover:shadow-sm rounded-md border border-transparent transition-all duration-150 cursor-pointer"
-                    >
-                        Ara
-                    </button>
-                    <button
-                        onClick={() => setValue('')}
-                        className="px-4 py-2 text-sm text-gray-700 bg-gray-100 hover:bg-gray-200 hover:shadow-sm rounded-md border border-transparent transition-all duration-150 cursor-pointer"
-                    >
-                        Temizle
-                    </button>
-                </div>
             </div>
         </div>
     );
