@@ -31,6 +31,8 @@ export default function Page() {
     const [dataLoading, setDataLoading] = useState<boolean>(true);
     const [chats, setChats] = useState<Chat[]>([{ content: "Sen bir yapayzekasın. Adın donut.exe", role: "system" }]);
     const chatsRef = useRef<HTMLUListElement>(null);
+    const [isTyping, setIsTyping] = useState(false);
+
 
     const scrollToBot = (): void => {
         if (chatsRef.current) {
@@ -42,9 +44,12 @@ export default function Page() {
         scrollToBot();
     }, [chats]);
 
-    const submitMessage = async (e?: React.MouseEvent | React.KeyboardEvent): Promise<void> => {
-        e?.preventDefault();
-        if (!value.trim()) return;
+const submitMessage = async (e?: React.MouseEvent | React.KeyboardEvent): Promise<void> => {
+    e?.preventDefault();
+    if (!value.trim()) return;
+
+    try {
+        setIsTyping(true);
 
         const userMessage: Chat = {
             role: "user",
@@ -72,7 +77,22 @@ export default function Page() {
                 content: rep.choices?.[0]?.message?.content || "",
             },
         ]);
-    };
+
+    } catch (err: any) {
+        console.error("AI ERROR:", err);
+
+        setChats((prev) => [
+            ...prev,
+            {
+                role: "assistant",
+                content: "⚠️ Bir hata oluştu. Lütfen tekrar dene.",
+            },
+        ]);
+
+    } finally {
+        setIsTyping(false);
+    }
+};
 
     useEffect(() => {
         if (!loading && !user) router.push("/login/sign-in");
@@ -119,6 +139,11 @@ export default function Page() {
                         <p className="text-black/60 text-sm font-medium">Henüz mesaj yok</p>
                     </div>
                 )}
+                {isTyping && (
+    <li className="flex items-center gap-2 text-gray-400 text-sm px-2">
+        <span className="animate-pulse">donut.exe yazıyor...</span>
+    </li>
+)}
 
                 {chats.map((chat: Chat, index: number) => (
                     <Message key={index} chat={chat} user={username} />
