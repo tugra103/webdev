@@ -56,12 +56,12 @@ export default function Page() {
 
 
         setValue("");
-        let rep = await client.chat.send({
+        let rep = await client.chat.send({chatRequest:{
             model: "openai/gpt-oss-120b:free",
             messages: chats,
             temperature: 0.7, // ← Type-checked
             stream: false     // ← Response type changes based on this
-        });
+        }} );
         setChats((prev) => [
             ...prev,
             {
