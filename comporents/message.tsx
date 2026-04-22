@@ -36,7 +36,7 @@ const Message = ({ chat, user }: MessageProps) => {
                     : "bg-white text-gray-800 rounded-t-2xl rounded-br-2xl rounded-bl-sm border border-gray-100"
                 }
             `}>
-                {chat.content}
+                <p>{chat.content}</p>
 
                 {/* Tail */}
                 <span className={`
