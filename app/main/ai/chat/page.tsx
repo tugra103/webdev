@@ -29,7 +29,7 @@ export default function Page() {
     const [photoURL, setPhotoURL] = useState<string>("");
     const [username, setUsername] = useState<string>("");
     const [dataLoading, setDataLoading] = useState<boolean>(true);
-    const [chats, setChats] = useState<Chat[]>([{ content: "Sen bir yapayzekasın. Adın donut.exe", role: "system" }]);
+    const [chats, setChats] = useState<Chat[]>([{ content: <p>{"Sen bir yapayzekasın. Adın donut.exe"}</p> , role: "system" }]);
     const chatsRef = useRef<HTMLUListElement>(null);
 
     const scrollToBot = (): void => {
