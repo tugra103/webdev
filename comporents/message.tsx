@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 
 interface Chat {
-    username:  "user" | "assistant" | "system";
+    role:  "user" | "assistant" | "system";
     content: string;
 }
 
@@ -11,14 +11,14 @@ interface MessageProps {
 }
 
 const Message = ({ chat, user }: MessageProps) => {
-    const isOwn = user === chat.username;
+    const isOwn = user === chat.role;
 
     return (
         <li className={`flex items-end gap-2 my-3 ${isOwn ? "flex-row-reverse" : "flex-row"}`}>
             {!isOwn && (
                 <div className="flex flex-col items-center gap-1 flex-shrink-0">
                     <span className="text-[10px] text-gray-400 font-medium max-w-[56px] truncate">
-                        {chat.username}
+                        {chat.role}
                     </span>
                 </div>
             )}
