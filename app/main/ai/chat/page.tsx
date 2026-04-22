@@ -38,9 +38,9 @@ export default function Page() {
         setChats((prev) => [
             ...prev,
             {
-                username: username,
+                username: {username},
                 content: <p>{value}</p>,
-                img: "http://i.imgur.com/Tj5DGiO.jpg",
+                img: {photoURL},
             },
         ]);
 
