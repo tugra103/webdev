@@ -66,7 +66,7 @@ export default function Page() {
             ...prev,
             {
                 role: "assistant",
-                content: <p>{rep.choices?.[0]?.message?.content}</p>,
+                content: rep.choices?.[0]?.message?.content,
             },
         ]);
 
