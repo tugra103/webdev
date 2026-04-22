@@ -22,7 +22,7 @@ interface Chat {
     content: ReactElement;
 }
 
-export default async function Page() {
+export default function Page() {
     const { user, loading } = useAuth();
     const router = useRouter();
     const [value, setValue] = useState<string>('');
@@ -42,7 +42,7 @@ export default async function Page() {
         scrollToBot();
     }, [chats]);
 
-    const submitMessage = (e?: React.MouseEvent | React.KeyboardEvent): void => {
+    const submitMessage = async (e?: React.MouseEvent | React.KeyboardEvent): void => {
         e?.preventDefault();
         if (!value.trim()) return;
 
