@@ -29,7 +29,7 @@ export default function Page() {
     const [photoURL, setPhotoURL] = useState<string>("");
     const [username, setUsername] = useState<string>("");
     const [dataLoading, setDataLoading] = useState<boolean>(true);
-    const [chats, setChats] = useState<Chat[]>([{ content: "Sen bir yapayzekasın. Adın donut.exe" , role: "system" }]);
+    const [chats, setChats] = useState<Chat[]>([{ content: "Sen bir yapayzekasın. Adın donut.exe", role: "system" }]);
     const chatsRef = useRef<HTMLUListElement>(null);
 
     const scrollToBot = (): void => {
@@ -46,31 +46,32 @@ export default function Page() {
         e?.preventDefault();
         if (!value.trim()) return;
 
-        setChats((prev) => [
-            ...prev,
-            {
-                role: "user",
-                content: {value},
-            },
-        ]);
+        const userMessage: Chat = {
+            role: "user",
+            content: value,
+        };
 
+        const updatedChats = [...chats, userMessage];
 
+        setChats(updatedChats);
         setValue("");
-        let rep = await client.chat.send({chatRequest:{
-            model: "openai/gpt-oss-120b:free",
-            messages: chats,
-            temperature: 0.7, // ← Type-checked
-            stream: false     // ← Response type changes based on this
-        }} );
+
+        let rep = await client.chat.send({
+            chatRequest: {
+                model: "openai/gpt-oss-120b:free",
+                messages: updatedChats,
+                temperature: 0.7,
+                stream: false,
+            }
+        });
+
         setChats((prev) => [
             ...prev,
             {
                 role: "assistant",
-                content: rep.choices?.[0]?.message?.content,
+                content: rep.choices?.[0]?.message?.content || "",
             },
         ]);
-
-
     };
 
     useEffect(() => {
