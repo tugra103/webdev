@@ -18,7 +18,7 @@ const client = new OpenRouter({
 });
 
 interface Chat {
-    role:  "user" | "assistant" | "system";
+    role: "user" | "assistant" | "system";
     content: string;
 }
 
@@ -44,55 +44,55 @@ export default function Page() {
         scrollToBot();
     }, [chats]);
 
-const submitMessage = async (e?: React.MouseEvent | React.KeyboardEvent): Promise<void> => {
-    e?.preventDefault();
-    if (!value.trim()) return;
+    const submitMessage = async (e?: React.MouseEvent | React.KeyboardEvent): Promise<void> => {
+        e?.preventDefault();
+        if (!value.trim()) return;
 
-    try {
-        setIsTyping(true);
+        try {
+            setIsTyping(true);
 
-        const userMessage: Chat = {
-            role: "user",
-            content: value,
-        };
+            const userMessage: Chat = {
+                role: "user",
+                content: value,
+            };
 
-        const updatedChats = [...chats, userMessage];
+            const updatedChats = [...chats, userMessage];
 
-        setChats(updatedChats);
-        setValue("");
+            setChats(updatedChats);
+            setValue("");
 
-        let rep = await client.chat.send({
-            chatRequest: {
-                model: "openai/gpt-oss-120b:free",
-                messages: updatedChats,
-                temperature: 0.7,
-                stream: false,
-            }
-        });
+            let rep = await client.chat.send({
+                chatRequest: {
+                    model: "openai/gpt-oss-120b:free",
+                    messages: updatedChats,
+                    temperature: 0.7,
+                    stream: false,
+                }
+            });
 
-        setChats((prev) => [
-            ...prev,
-            {
-                role: "assistant",
-                content: rep.choices?.[0]?.message?.content || "",
-            },
-        ]);
+            setChats((prev) => [
+                ...prev,
+                {
+                    role: "assistant",
+                    content: rep.choices?.[0]?.message?.content || "",
+                },
+            ]);
 
-    } catch (err: any) {
-        console.error("AI ERROR:", err);
+        } catch (err: any) {
+            console.error("AI ERROR:", err);
 
-        setChats((prev) => [
-            ...prev,
-            {
-                role: "assistant",
-                content: "⚠️ Bir hata oluştu. Lütfen tekrar dene.",
-            },
-        ]);
+            setChats((prev) => [
+                ...prev,
+                {
+                    role: "assistant",
+                    content: "⚠️ Bir hata oluştu. Lütfen tekrar dene.",
+                },
+            ]);
 
-    } finally {
-        setIsTyping(false);
-    }
-};
+        } finally {
+            setIsTyping(false);
+        }
+    };
 
     useEffect(() => {
         if (!loading && !user) router.push("/login/sign-in");
@@ -140,10 +140,10 @@ const submitMessage = async (e?: React.MouseEvent | React.KeyboardEvent): Promis
                     </div>
                 )}
                 {isTyping && (
-    <li className="flex items-center gap-2 text-gray-400 text-sm px-2">
-        <span className="animate-pulse">donut.exe yazıyor...</span>
-    </li>
-)}
+                    <li className="flex items-center gap-2 text-gray-400 text-sm px-2">
+                        <span className="animate-pulse">donut.exe yazıyor...</span>
+                    </li>
+                )}
 
                 {chats.map((chat: Chat, index: number) => (
                     <Message key={index} chat={chat} user={username} />

@@ -74,6 +74,7 @@ export default function Page() {
                     <button
                         onClick={() => console.log('search:', value)}
                         className="text-gray-400 hover:text-gray-600 mr-2"
+                        href="/webdev/main/ai/chat"
                     >
                         <svg className="w-4 h-4 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />

@@ -12,7 +12,7 @@ interface MessageProps {
 
 const Message = ({ chat, user }: MessageProps) => {
     const isOwn = user === chat.role;
-
+    if (chat.role="system") return;
     return (
         <li className={`flex items-end gap-2 my-3 ${isOwn ? "flex-row-reverse" : "flex-row"}`}>
             {!isOwn && (
