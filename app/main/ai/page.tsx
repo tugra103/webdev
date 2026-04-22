@@ -1,8 +1,8 @@
 "use client";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "@context/AuthContext";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import Navbar from "../../comporents/navbar";
+import Navbar from "@comporents/navbar";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/app/firebase";
 
