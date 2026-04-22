@@ -18,7 +18,8 @@ jobs:
 
       - name: İnstall React Bootstrap
         run: |
-          npm install @fingerprint/react
+          npm install @openrouter/sdk
+
 
       - name: Commit and push changes
         run: |
