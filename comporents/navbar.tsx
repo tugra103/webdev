@@ -18,13 +18,6 @@ const Navbar = () => {
   const lightStyles = `
     @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600&display=swap');
 
-    .light-nav {
-      padding: 20px 24px;
-      background: linear-gradient(135deg, #f0f4ff 0%, #faf5ff 50%, #f0f9ff 100%);
-      min-height: 80px;
-      display: flex;
-      align-items: center;
-    }
 
     .light-nav .p-menubar {
       width: 100%;
@@ -70,23 +63,6 @@ const Navbar = () => {
       border-radius: 9px !important;
     }
 
-    .luxury-search .p-inputtext {
-      background: rgba(245,243,255,0.8) !important;
-      border: 1px solid rgba(139,92,246,0.18) !important;
-      border-radius: 12px !important;
-      color: #4c1d95 !important;
-      font-size: 13px !important;
-      padding: 8px 14px !important;
-      transition: all 0.25s !important;
-      width: 155px !important;
-    }
-    .luxury-search .p-inputtext:focus {
-      width: 195px !important;
-      outline: none !important;
-      border-color: #a78bfa !important;
-      background: rgba(245,243,255,1) !important;
-      box-shadow: 0 0 0 3px rgba(139,92,246,0.12) !important;
-    }
 
     .luxury-avatar .p-avatar {
       width: 36px !important;
@@ -148,7 +124,7 @@ const Navbar = () => {
   const start = (
     <img
       alt="logo"
-      src="/webdev/donut.png"//https://primefaces.org/cdn/primereact/images/logo.png"
+      src="/webdev/donutsmall.png"//https://primefaces.org/cdn/primereact/images/logo.png"
       style={{ height: "30px", objectFit: "contain" }}
     />
   );
