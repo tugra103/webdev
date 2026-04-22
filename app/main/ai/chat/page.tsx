@@ -42,7 +42,7 @@ export default function Page() {
         scrollToBot();
     }, [chats]);
 
-    const submitMessage = async (e?: React.MouseEvent | React.KeyboardEvent): void => {
+    const submitMessage = async (e?: React.MouseEvent | React.KeyboardEvent): Promise<void> => {
         e?.preventDefault();
         if (!value.trim()) return;
 
