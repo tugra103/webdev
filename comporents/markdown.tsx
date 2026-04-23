@@ -69,7 +69,7 @@ export default function MarkdownRenderer({ content }: Props) {
 
         case "heading_open": {
           const level = Number(t.tag.replace("h", ""));
-          const Tag = `h${level}` as keyof JSX.IntrinsicElements;
+          const Tag = (`h${level}` as keyof React.JSX.IntrinsicElements);
 
           output.push(
             <Tag key={i}>
