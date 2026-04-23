@@ -15,5 +15,5 @@ export async function sendMessage(messages: any[]) {
     },
   });
 
-  return res.choices?.[0]?.message?.content || "";
+  return res;
 }
