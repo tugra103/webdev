@@ -1,48 +1,47 @@
-import React, { ReactElement } from 'react';
-import MarkdownRenderer from "@/comporents/markdown"
+import React from "react";
+import MarkdownRenderer from "@/comporents/markdown";
+
 interface Chat {
-    role:  "user" | "assistant" | "system";
-    content: string;
+  role: "user" | "assistant" | "system";
+  content: string;
 }
 
 interface MessageProps {
-    chat: Chat;
-    user: string;
+  chat: Chat;
+  user: string;
 }
 
 const Message = ({ chat, user }: MessageProps) => {
-    const isOwn = user === chat.role;
-    if (chat.role="system") return;
-    return (
-        <li className={`flex items-end gap-2 my-3 ${isOwn ? "flex-row-reverse" : "flex-row"}`}>
-            {!isOwn && (
-                <div className="flex flex-col items-center gap-1 flex-shrink-0">
-                    <span className="text-[10px] text-gray-400 font-medium max-w-[56px] truncate">
-                        {chat.role}
-                    </span>
-                </div>
-            )}
+  const isOwn = chat.role === "user";
 
-            <div className={`
-                relative max-w-[70%] px-4 py-2.5 shadow-sm text-sm leading-relaxed
-                ${isOwn
-                    ? "bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-t-2xl rounded-bl-2xl rounded-br-sm"
-                    : "bg-white text-gray-800 rounded-t-2xl rounded-br-2xl rounded-bl-sm border border-gray-100"
-                }
-            `}>
-                {user==="assistant" ? <MarkdownRenderer content={chat.content} /> : <p>{chat.content}</p>}
+  if (chat.role === "system") return null;
 
-                {/* Tail */}
-                <span className={`
-                    absolute bottom-0 w-2 h-2
-                    ${isOwn
-                        ? "right-[-6px] border-l-8 border-l-blue-600 border-t-8 border-t-transparent"
-                        : "left-[-6px] border-r-8 border-r-white border-t-8 border-t-transparent"
-                    }
-                `} />
-            </div>
-        </li>
-    );
+  return (
+    <li className={`flex items-end gap-2 my-3 ${isOwn ? "flex-row-reverse" : "flex-row"}`}>
+      {!isOwn && (
+        <span className="text-[10px] text-gray-400">
+          {chat.role}
+        </span>
+      )}
+
+      <div
+        className={`
+          relative max-w-[70%] px-4 py-2.5 text-sm leading-relaxed
+          ${
+            isOwn
+              ? "bg-blue-500 text-white rounded-xl"
+              : "bg-white text-gray-800 border rounded-xl"
+          }
+        `}
+      >
+        {chat.role === "assistant" ? (
+          <MarkdownRenderer content={chat.content} />
+        ) : (
+          <p>{chat.content}</p>
+        )}
+      </div>
+    </li>
+  );
 };
 
 export default Message;
