@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-
+import MarkdownRenderer from "@/comporents/markdown"
 interface Chat {
     role:  "user" | "assistant" | "system";
     content: string;
@@ -30,7 +30,7 @@ const Message = ({ chat, user }: MessageProps) => {
                     : "bg-white text-gray-800 rounded-t-2xl rounded-br-2xl rounded-bl-sm border border-gray-100"
                 }
             `}>
-                <p>{chat.content}</p>
+                {user==="assistant" ? <MarkdownRenderer content={chat.content} /> : <p>{chat.content}</p>}
 
                 {/* Tail */}
                 <span className={`
