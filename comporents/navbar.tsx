@@ -104,9 +104,9 @@ const Navbar = () => {
   );
 
   const items: any[] = [
-    { label: "Ana Sayfa", icon: "pi pi-home", url:"/webdev/main" },
-    { label: "Oyunlar", icon: "pi pi-star", url:"/webdev/main/games"},
-    { label: "Donut.Exe", icon: "pi pi-star", url:"/webdev/main/ai"},
+    { label: "Ana Sayfa", icon: "pi pi-home", url:"/main" },
+    { label: "Oyunlar", icon: "pi pi-star", url:"/main/games"},
+    { label: "Donut.Exe", icon: "pi pi-star", url:"/main/ai"},
     
     {
 
@@ -133,7 +133,7 @@ const Navbar = () => {
   const start = (
     <img
       alt="logo"
-      src="/webdev/donutsmall.png"//https://primefaces.org/cdn/primereact/images/logo.png"
+      src="donutsmall.png"//https://primefaces.org/cdn/primereact/images/logo.png"
       style={{ height: "30px", objectFit: "contain" }}
     />
   );
@@ -142,7 +142,7 @@ const Navbar = () => {
   const end = (
     <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
       <div className="luxury-avatar">
-        <a href="/webdev/main/account">
+        <a href="/main/account">
           <Avatar
             image={photoURL ?? "https://primefaces.org/cdn/primereact/images/avatar/default.png"}
             shape="circle"
