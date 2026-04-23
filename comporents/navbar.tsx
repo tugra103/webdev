@@ -133,7 +133,7 @@ const Navbar = () => {
   const start = (
     <img
       alt="logo"
-      src="donutsmall.png"//https://primefaces.org/cdn/primereact/images/logo.png"
+      src="/donutsmall.png"//https://primefaces.org/cdn/primereact/images/logo.png"
       style={{ height: "30px", objectFit: "contain" }}
     />
   );

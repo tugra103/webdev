@@ -48,7 +48,7 @@ export default function Page() {
 
                 {/* Logo / Title */}
                 <div className="text-5xl font-normal tracking-tight text-gray-700 select-none">
-                    <img src="/webdev/donutexefull.png" />
+                    <img src="/donutexefull.png" />
                 </div>
 
                 {/* Search bar */}
