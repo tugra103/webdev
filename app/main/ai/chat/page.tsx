@@ -11,13 +11,7 @@ import "primereact/resources/primereact.min.css";
 import Message from "@/comporents/message";
 import { OpenRouter } from '@openrouter/sdk';
 import MarkdownRenderer from "@/comporents/markdown"
-const REACT_INTERNAL_OBJECT_DONT_TOUCH_OR_YOU_WILL_BE_FIRED = "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"
-
-
-const client = new OpenRouter({
-    apiKey: REACT_INTERNAL_OBJECT_DONT_TOUCH_OR_YOU_WILL_BE_FIRED
-});
-
+import { sendMessage } from "@/app/main/ai/chat/chat";
 interface Chat {
     role: "user" | "assistant" | "system";
     content: string;
@@ -62,14 +56,9 @@ export default function Page() {
             setChats(updatedChats);
             setValue("");
 
-            let rep = await client.chat.send({
-                chatRequest: {
-                    model: "openai/gpt-oss-120b:free",
-                    messages: updatedChats,
-                    temperature: 0.7,
-                    stream: false,
-                }
-            });
+            let rep = await sendMessage(
+                    updatedChats,
+            );
 
             setChats((prev) => [
                 ...prev,
