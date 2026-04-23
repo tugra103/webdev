@@ -18,7 +18,7 @@ jobs:
 
       - name: İnstall React Bootstrap
         run: |
-          npm install @openrouter/sdk
+          npm install markdown-it
 
 
       - name: Commit and push changes
