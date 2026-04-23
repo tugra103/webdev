@@ -6,8 +6,8 @@ import Navbar from "@/comporents/navbar";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/app/firebase";
 import { ProgressSpinner } from "primereact/progressspinner";
-import "primereact/resources/themes/lara-light-blue/theme.css";
-import "primereact/resources/primereact.min.css";
+import "primereact/resources/themes/lara-light-blue/theme.css"; 
+import "primereact/resources/primereact.min.css"; 
 
 export default function Page() {
     const { user, loading } = useAuth();
