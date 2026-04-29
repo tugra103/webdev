@@ -29,7 +29,16 @@ function GamePage() {
   const [gameLoading, setGameLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
   const [fullscreen, setFullscreen] = useState(false);
-    
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+        if (!document.fullscreenElement) {
+            setFullscreen(false); // ESC ile çıkınca state'i sıfırla
+        }
+    };
+
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    return () => document.removeEventListener("fullscreenchange", handleFullscreenChange);
+  }, []);
   useEffect(() => {
     if (!loading && !user) router.push("/login/sign-in");
   }, [user, loading]);
@@ -100,7 +109,9 @@ function GamePage() {
             </div>
 
             <button
-              onClick={() => setFullscreen(true)}
+              onClick={() => {setFullscreen(true)
+                 document.documentElement.requestFullscreen();
+              }}
               className="flex items-center gap-2 text-sm px-4 py-2 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors"
             >
               <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -117,7 +128,9 @@ function GamePage() {
         >
           {fullscreen && (
             <button
-              onClick={() => setFullscreen(false)}
+              onClick={() => {setFullscreen(false)
+                document.exitFullscreen();
+              }}
               className="absolute top-4 right-4 z-10 p-2 bg-black bg-opacity-60 rounded-lg text-white hover:bg-opacity-80 transition"
             >
               <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
