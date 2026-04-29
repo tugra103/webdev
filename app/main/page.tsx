@@ -77,7 +77,7 @@ export default function Page() {
   { label: "Profil", sub: "Düzenle", icon: "👤", href: "/webdev/main/account", bg: "bg-blue-50" },
   { label: "Arkadaş", sub: "Ekle", icon: "➕", href: "/webdev/main/account", bg: "bg-green-50" },
   { label: "İstekler", sub: `${Object.keys(friendReqs).length} bekliyor`, icon: "🔔", href: "/webdev/main/account", bg: "bg-amber-50" },
-  { label: "Mesaj", sub: "Yakında", icon: "💬", href: "#", bg: "bg-purple-50" },
+  { label: "DonutHub", sub: "Giriş Yap", icon: "💬", href: "https://donuthub.tugra.win", bg: "bg-purple-50" },
 ].map((a) => {
   return (
     //commit olsun diye var bu comment
@@ -126,7 +126,7 @@ export default function Page() {
                 { label: "Profil", sub: "Düzenle", icon: "👤", href: "/webdev/main/account", bg: "bg-blue-50" },
                 { label: "Arkadaş", sub: "Ekle", icon: "➕", href: "/webdev/main/account", bg: "bg-green-50" },
                 { label: "İstekler", sub: `${Object.keys(friendReqs).length} bekliyor`, icon: "🔔", href: "/webdev/main/account", bg: "bg-amber-50" },
-                { label: "Mesaj", sub: "Yakında", icon: "💬", href: "#", bg: "bg-purple-50" },
+                { label: "Donut Hub", sub: "Giriş Yap", icon: "💬", href: "https://donuthub.tugra.win", bg: "bg-purple-50" },
               ].map((a) => (
                 <a
                   key={a.label}
