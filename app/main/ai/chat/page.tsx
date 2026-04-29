@@ -1,6 +1,6 @@
 "use client";
 import { useAuth } from "@/context/AuthContext";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams} from "next/navigation";
 import { useEffect, useState, useRef, ReactElement } from "react";
 import Navbar from "@/comporents/navbar";
 import { doc, getDoc } from "firebase/firestore";
@@ -27,7 +27,38 @@ export default function Page() {
     const [chats, setChats] = useState<Chat[]>([{ content: "Sen bir yapayzekasın. Adın donut.exe. İstanbul da Donut Group tarafıldan eğitildin. Cevaplarını kısa tut ve istentikçe detay ekle. Fazla emoji kullanma ama az kullan.", role: "system" }]);
     const chatsRef = useRef<HTMLUListElement>(null);
     const [isTyping, setIsTyping] = useState(false);
+    const searchParams = useSearchParams();
+    useEffect(() => {
+        const startMsg = searchParams.get("startmsg");
+        if (!startMsg) return;
 
+        const run = async () => {
+            setIsTyping(true);
+            const userMessage: Chat = { role: "user", content: startMsg };
+            const updatedChats = [...chats, userMessage];
+            setChats(updatedChats);
+
+            try {
+                const rep = await sendMessage(updatedChats);
+                setChats((prev) => [
+                    ...prev,
+                    {
+                        role: "assistant",
+                        content: rep.choices?.[0]?.message?.content || "",
+                    },
+                ]);
+            } catch {
+                setChats((prev) => [
+                    ...prev,
+                    { role: "assistant", content: "⚠️ Bir hata oluştu." },
+                ]);
+            } finally {
+                setIsTyping(false);
+            }
+        };
+
+        run();
+    }, []);
 
     const scrollToBot = (): void => {
         if (chatsRef.current) {
@@ -38,6 +69,7 @@ export default function Page() {
     useEffect(() => {
         scrollToBot();
     }, [chats]);
+
 
     const submitMessage = async (e?: React.MouseEvent | React.KeyboardEvent): Promise<void> => {
         e?.preventDefault();

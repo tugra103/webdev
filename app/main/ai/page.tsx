@@ -72,7 +72,7 @@ export default function Page() {
                         </button>
                     )}
                     <button
-                        onClick={() => router.push("/main/ai/chat")}
+                        onClick={() => router.push(`/main/ai/chat?startmsg=${encodeURIComponent(value)}`)}
                         className="text-gray-400 hover:text-gray-600 mr-2"
                     >
                         <svg className="w-4 h-4 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
