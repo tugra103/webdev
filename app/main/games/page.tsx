@@ -107,7 +107,7 @@ useEffect(() => {
             {filtered.map((game) => (
               <a
                 key={game.name}
-                href={`/webdev/main/games/game?name=${game.name}`}
+                href={`/main/games/game?name=${game.name}`}
                 className="group bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow no-underline"
               >
                 <div className="relative overflow-hidden">
