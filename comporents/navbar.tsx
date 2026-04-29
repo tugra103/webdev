@@ -107,9 +107,8 @@ const Navbar = () => {
     { label: "Ana Sayfa", icon: "pi pi-home", url:"/main" },
     { label: "Oyunlar", icon: "pi pi-star", url:"/main/games"},
     { label: "Donut.Exe", icon: "pi pi-star", url:"/main/ai"},
-    
-    {
-
+    { label: "Donut Hub", icon:"pi pi-star", url:"https://donuthub.tugra.win"},
+    /*{
       label: "Projects",
       icon: "pi pi-search",
       items: [
@@ -128,7 +127,8 @@ const Navbar = () => {
       ],
     },
     { label: "Contact", icon: "pi pi-envelope", badge: 3, template: itemRenderer },
-  ];
+   */  
+    ];
 
   const start = (
     <img
