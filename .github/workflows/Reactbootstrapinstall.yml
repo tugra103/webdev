@@ -18,7 +18,7 @@ jobs:
 
       - name: İnstall React Bootstrap
         run: |
-          npm install markdown-it
+          npm i dompurify
 
 
       - name: Commit and push changes
