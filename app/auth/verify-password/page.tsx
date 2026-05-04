@@ -27,7 +27,7 @@ export default function VerifyPassword() {
 
     const result = schema.safeParse({ password });
     if (!result.success) {
-      setErrors({ password: result.error.errors[0].message });
+      setErrors({ password: result.error.error[0].message });
       return;
     }
 
