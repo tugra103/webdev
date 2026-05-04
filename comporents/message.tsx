@@ -20,7 +20,7 @@ const Message = ({ chat, user }: MessageProps) => {
     <li className={`flex items-end gap-2 my-3 ${isOwn ? "flex-row-reverse" : "flex-row"}`}>
       {!isOwn && (
         <span className="text-[10px] text-gray-400">
-          {chat.role}
+          {/*chat.role*/}
         </span>
       )}
 

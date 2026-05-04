@@ -24,7 +24,7 @@ export default function ChatPage() {
     const [photoURL, setPhotoURL] = useState<string>("");
     const [username, setUsername] = useState<string>("");
     const [dataLoading, setDataLoading] = useState<boolean>(true);
-    const [chats, setChats] = useState<Chat[]>([{ content: "Sen bir yapayzekasın. Adın donut.exe. İstanbul da Donut Group tarafıldan eğitildin. Cevaplarını kısa tut ve istentikçe detay ekle. Fazla emoji kullanma ama az kullan.", role: "system" }]);
+    const [chats, setChats] = useState<Chat[]>([{ content: "Sen bir yapayzekasın. Adın donut.exe. İstanbul da Donut Group tarafıldan 2026'da eğitildin. Cevaplarını kısa tut ve istentikçe detay ekle. Fazla emoji kullanma ama az kullan.", role: "system" }]);
     const chatsRef = useRef<HTMLUListElement>(null);
     const [isTyping, setIsTyping] = useState(false);
     const searchParams = useSearchParams();
