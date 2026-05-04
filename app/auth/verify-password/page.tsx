@@ -31,7 +31,7 @@ export default function VerifyPassword() {
       const auth = getAuth(app);
       await signInWithEmailAndPassword(auth, email, password);
 
-      router.replace("/dashboard");
+      router.replace("/main");
     } catch (e: any) {
       setError("Şifre yanlış.");
     }
