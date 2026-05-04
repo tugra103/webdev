@@ -4,8 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { FingerprintProvider } from '@fingerprint/react'
 import { AuthProvider } from "@/context/AuthContext";
-import { SessionProvider } from "next-auth/react";
-
+import SessionWrapper from "@/components/SessionWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,9 +36,9 @@ export default function RootLayout({
         <FingerprintProvider
           apiKey="GZPxUkuA0MLMwf37sk9s"
           region="eu"
-        ><SessionProvider>
+        ><SessionWrapper>
           {children}
-        </SessionProvider></FingerprintProvider>
+        </SessionWrapper></FingerprintProvider>
         </AuthProvider>
         </body>
     </html>
