@@ -11,6 +11,7 @@ import { setPersistence, browserLocalPersistence } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
+import { signIn, signOut, useSession } from "next-auth/react";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -43,7 +44,7 @@ export default function SignIn() {
   }>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigate = useRouter()
-
+  const { data: session } = useSession();
   const handleSubmit = async (data: typeof formData) => {
     try {
       setIsSubmitting(true)
@@ -131,6 +132,9 @@ export default function SignIn() {
               {isSubmitting ? 'Signing In...' : 'Sign In'}
             </Button>
           </form>
+          <button onClick={() => signIn("mastodon")}>
+            Mastodon ile Giriş Yap
+          </button>
       </Card>
     </div>
   )
