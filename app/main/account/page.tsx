@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import Navbar from "@/comporents/navbar";
 import { Card } from "primereact/card";
 import { Avatar } from "primereact/avatar";
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import { db, app } from "@/app/firebase";
 import { signIn, useSession } from "next-auth/react";
 import { updateProfile, getAuth, signOut } from "firebase/auth";
