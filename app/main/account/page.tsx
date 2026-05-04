@@ -6,7 +6,7 @@ import Navbar from "@/comporents/navbar";
 import { Card } from "primereact/card";
 import { Avatar } from "primereact/avatar";
 import { doc, setDoc, getDoc } from "firebase/firestore";
-import { db } from "@/app/firebase";
+import { db, app } from "@/app/firebase";
 import { signIn, useSession } from "next-auth/react";
 import { updateProfile, getAuth, signOut } from "firebase/auth";
 import { TabView, TabPanel } from 'primereact/tabview';
@@ -166,7 +166,6 @@ export default function Page() {
         alert("Önce Hesabınla Giriş yap!")
         signIn("mastodon")
       } else {
-        const auth = getAuth(app);
         await updateDoc(doc(db, "users", existingDocId), {
           mastodonId: session?.user.id,
         });
