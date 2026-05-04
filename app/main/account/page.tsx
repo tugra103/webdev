@@ -27,7 +27,7 @@ export default function Page() {
 const [Friends, setFriends] = useState<Record<string, string>>({})
 
   // Arkadaşlar sekmesi için gerekli fonksiyonlar ve JSX
-
+const { data: session } = useSession();
 // 1. State'lere şunu ekle:
 const [addCode, setAddCode] = useState("");
 const [addError, setAddError] = useState("");
@@ -275,7 +275,28 @@ const changeUserData = async (data: any) => {
           </div>
         </button>
       </div>
-
+{/*Mastodon bilgiler*/}
+<div className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
+        <button
+          className="w-full flex items-center gap-3 px-5 py-4 hover:bg-red-50 transition-colors"
+          onClick={() => {
+                try {
+                  if (!session){
+                    alert("Önce Hesabınla Giriş yap!")
+                    signIn("mastodon")
+                  }else{
+                  const auth = getAuth(app);
+                  await updateDoc(doc(db, "users", existingDocId), {
+                    mastodonId: session?.user.id,
+                  });}
+                } catch {
+                  // boşver
+                }
+          }}
+        >
+          <span className="text-sm text-red-500 font-medium">Mastodon Hesabını bağla</span>
+        </button>
+      </div>
       {/* Çıkış Kartı */}
       <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
         <button
