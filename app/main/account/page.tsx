@@ -166,9 +166,11 @@ export default function Page() {
         alert("Önce Hesabınla Giriş yap!")
         signIn("mastodon")
       } else {
-        await updateDoc(doc(db, "users", user.uid), {
-          mastodonId: session?.user.id,
-        });
+        if (user) {
+          await updateDoc(doc(db, "users", user.uid), {
+            mastodonId: session?.user.id,
+          });
+        }
       }
     } catch {
       // boşver
