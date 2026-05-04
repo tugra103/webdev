@@ -3,20 +3,31 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { db } from "@/lib/firebase";
 
 export default function AuthCallback() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
   useEffect(() => {
-    if (status === "loading") return;
-    if (!session) return;
+    if (status === "loading" || !session) return;
 
-    if (session.user.isNewUser) {
-      router.replace("/complete-profile");
-    } else {
-      router.replace("/main");
+    async function check() {
+      const q = query(
+        collection(db, "users"),
+        where("mastodonId", "==", session!.user.id)
+      );
+      const snap = await getDocs(q);
+
+      if (snap.empty) {
+        router.replace("/complete-profile");
+      } else {
+        router.replace("/dashboard");
+      }
     }
+
+    check();
   }, [session, status]);
 
   return <p>Yükleniyor...</p>;

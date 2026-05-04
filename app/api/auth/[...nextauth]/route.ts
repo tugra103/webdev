@@ -28,8 +28,8 @@ const handler = NextAuth({
   ],
   callbacks: {
     async jwt({ token, profile }) {
-    if (profile) {
-      const mastodonProfile = profile as {
+  if (profile) {
+    const mastodonProfile = profile as {
       id: string;
       username: string;
       avatar: string;
@@ -38,27 +38,18 @@ const handler = NextAuth({
     token.mastodonId = mastodonProfile.id;
     token.mastodonUsername = mastodonProfile.username;
     token.mastodonAvatar = mastodonProfile.avatar;
-
-      // Firestore'da var mı?
-      const snap = await adminDb
-        .collection("users")
-        .where("mastodonId", "==", profile.id)
-        .limit(1)
-        .get();
-
-      token.isNewUser = snap.empty;
-      if (!snap.empty) {
-        token.firebaseUid = snap.docs[0].id;
-      }
-    }
-    return token;
-  },
+    // isNewUser falan yok artık
+  }
+  return token;
+},
+async session({ session, token }) {
+  session.user.id = token.mastodonId as string;
+  return session;
+},
   async session({ session, token }) {
-    session.user.id = token.mastodonId as string;
-    session.user.isNewUser = token.isNewUser as boolean;
-    session.user.firebaseUid = token.firebaseUid as string;
-    return session;
-  },
+  session.user.id = token.mastodonId as string;
+  return session;
+},
 },
 });
 
