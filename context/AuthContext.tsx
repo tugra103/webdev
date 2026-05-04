@@ -18,15 +18,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
   //const session = await getServerSession();
   useEffect(() => {
-    if (!session) {
+    //if (!session) {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       setUser(firebaseUser);
       setLoading(false);
     });
     return () => unsubscribe(); // ✅ temiz cleanup
-    }else{
-      setUser(session.user);
-    }
+    //}else{
+      //setUser(session.user);
+    //}
   }, []);
 
   return (
