@@ -43,7 +43,7 @@ const handler = NextAuth({
   return token;
 },
 async session({ session, token }) {
-  session.user?.id = token.mastodonId as string;
+  session.user.id = token.mastodonId as string;
   return session;
 },
 },
