@@ -1,9 +1,8 @@
 "use client";
-import { z } from "zod";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import {
@@ -11,56 +10,81 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile,
-  fetchSignInMethodsForEmail,
 } from "firebase/auth";
 import { doc, setDoc, updateDoc, collection, query, where, getDocs } from "firebase/firestore";
 import { db, app } from "@/app/firebase";
 
-type Step = "email" | "login" | "register";
+type Step = "loading" | "login" | "register";
 
 export default function CompleteProfile() {
   const { data: session } = useSession();
   const router = useRouter();
-  const [step, setStep] = useState<Step>("email");
+  const [step, setStep] = useState<Step>("loading");
+  const [existingDocId, setExistingDocId] = useState("");
+  const [existingEmail, setExistingEmail] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [friendcode, setFriendcode] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Adım 1: Email kontrol
-  async function checkEmail(e: React.FormEvent) {
+  useEffect(() => {
+    if (!session?.user.id) return;
+
+    async function check() {
+      // Mastodon ID ile kayıt var mı?
+      const q = query(
+        collection(db, "users"),
+        where("mastodonId", "==", session!.user.id)
+      );
+      const snap = await getDocs(q);
+
+      if (!snap.empty) {
+        // Zaten bağlı, verify-password'e at
+        router.replace("/auth/verify-password");
+        return;
+      }
+
+      // Firebase'de email ile kayıt var mı?
+      // Mastodon username'ini email olarak deneyelim — bilmiyoruz
+      // Firestore'da hiç mastodonId'si olmayan ama email eşleşen kayıt arayacağız
+      // Bunun için email bilmemiz lazım, önce register adımına al
+      setStep("register");
+    }
+
+    check();
+  }, [session]);
+
+  async function handleEmailCheck(e: React.FormEvent) {
     e.preventDefault();
     setError("");
     setLoading(true);
     try {
-      const auth = getAuth(app);
-      const methods = await fetchSignInMethodsForEmail(auth, email);
-      setStep(methods.length > 0 ? "login" : "register");
+      const q = query(collection(db, "users"), where("email", "==", email));
+      const snap = await getDocs(q);
+
+      if (!snap.empty) {
+        setExistingDocId(snap.docs[0].id);
+        setExistingEmail(email);
+        setStep("login");
+      }
+      // email yoksa zaten register formunda kalıyor
     } catch {
-      setError("Geçersiz email.");
+      setError("Bir hata oluştu.");
     } finally {
       setLoading(false);
     }
   }
 
-  // Adım 2a: Mevcut hesap — şifre al, mastodonId bağla
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     setError("");
     setLoading(true);
     try {
       const auth = getAuth(app);
-      await signInWithEmailAndPassword(auth, email, password);
-
-      const q = query(collection(db, "users"), where("email", "==", email));
-      const snap = await getDocs(q);
-      if (!snap.empty) {
-        await updateDoc(doc(db, "users", snap.docs[0].id), {
-          mastodonId: session?.user.id,
-        });
-      }
-
+      await signInWithEmailAndPassword(auth, existingEmail, password);
+      await updateDoc(doc(db, "users", existingDocId), {
+        mastodonId: session?.user.id,
+      });
       router.replace("/main");
     } catch {
       setError("Şifre yanlış.");
@@ -69,7 +93,6 @@ export default function CompleteProfile() {
     }
   }
 
-  // Adım 2b: Yeni hesap — şifre + friendcode al
   async function handleRegister(e: React.FormEvent) {
     e.preventDefault();
     setError("");
@@ -77,21 +100,17 @@ export default function CompleteProfile() {
     try {
       const auth = getAuth(app);
       const { user } = await createUserWithEmailAndPassword(auth, email, password);
-
       await updateProfile(user, {
         displayName: session?.user.name,
         photoURL: session?.user.image ?? undefined,
       });
-
       await setDoc(doc(db, "users", user.uid), {
         displayName: session?.user.name,
         email,
-        friendcode: friendcode || user.uid,
         mastodonId: session?.user.id,
         image: session?.user.image,
         createdAt: new Date().toISOString(),
       });
-
       router.replace("/main");
     } catch (e: any) {
       setError(e.message ?? "Bir hata oluştu.");
@@ -100,25 +119,35 @@ export default function CompleteProfile() {
     }
   }
 
-  const titles: Record<Step, string> = {
-    email: "Hesabını Tamamla",
-    login: "Hesabını Bağla",
-    register: "Hesap Oluştur",
-  };
+  if (step === "loading") {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-purple-50/30">
+        <p className="text-gray-400">Yükleniyor...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-purple-50/30 p-4">
-      <Card className="w-full max-w-md" title={titles[step]}>
-
+      <Card
+        className="w-full max-w-md"
+        title={step === "login" ? "Hesabını Bağla" : "Hesap Oluştur"}
+      >
         <p className="text-sm text-gray-500 mb-4">
-          {step === "email" && `@${session?.user.name} olarak devam ediyorsun`}
-          {step === "login" && `${email} zaten kayıtlı. Mastodon hesabını bağlamak için şifreni gir.`}
-          {step === "register" && `${email} için yeni hesap oluşturuyorsun.`}
+          @{session?.user.name} olarak devam ediyorsun
         </p>
 
-        {/* Adım 1: Email */}
-        {step === "email" && (
-          <form onSubmit={checkEmail} className="space-y-4">
+        {/* Email + şifre — hesap var mı kontrol */}
+        {step === "register" && (
+          <form onSubmit={async (e) => {
+            e.preventDefault();
+            // Önce email var mı bak
+            await handleEmailCheck(e);
+            // Email yoksa direkt register
+            const q = query(collection(db, "users"), where("email", "==", email));
+            const snap = await getDocs(q);
+            if (snap.empty) await handleRegister(e);
+          }} className="space-y-4">
             <div className="space-y-2">
               <label className="text-sm font-medium">Email</label>
               <InputText
@@ -130,16 +159,29 @@ export default function CompleteProfile() {
                 className="w-full p-2 rounded border border-gray-300"
               />
             </div>
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Şifre</label>
+              <InputText
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                minLength={8}
+                placeholder="Şifre (min. 8 karakter)"
+                className="w-full p-2 rounded border border-gray-300"
+              />
+            </div>
             {error && <p className="text-red-500 text-sm text-center">{error}</p>}
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Kontrol ediliyor..." : "Devam Et"}
+              {loading ? "Lütfen bekle..." : "Devam Et"}
             </Button>
           </form>
         )}
 
-        {/* Adım 2a: Mevcut hesap */}
+        {/* Hesap bulundu, sadece şifre */}
         {step === "login" && (
           <form onSubmit={handleLogin} className="space-y-4">
+            <p className="text-sm text-gray-400">{existingEmail}</p>
             <div className="space-y-2">
               <label className="text-sm font-medium">Şifre</label>
               <InputText
@@ -155,53 +197,6 @@ export default function CompleteProfile() {
             <Button type="submit" className="w-full" disabled={loading}>
               {loading ? "Bağlanıyor..." : "Hesabı Bağla"}
             </Button>
-            <button
-              type="button"
-              className="text-sm text-gray-400 w-full text-center"
-              onClick={() => { setStep("email"); setPassword(""); setError(""); }}
-            >
-              Farklı email kullan
-            </button>
-          </form>
-        )}
-
-        {/* Adım 2b: Yeni hesap */}
-        {step === "register" && (
-          <form onSubmit={handleRegister} className="space-y-4">
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Şifre</label>
-              <InputText
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                minLength={8}
-                placeholder="Şifre oluştur (min. 8 karakter)"
-                className="w-full p-2 rounded border border-gray-300"
-              />
-            </div>
-            <div className="space-y-2">
-              <label className="text-sm font-medium">
-                Friendcode <span className="text-gray-400">(opsiyonel)</span>
-              </label>
-              <InputText
-                value={friendcode}
-                onChange={(e) => setFriendcode(e.target.value)}
-                placeholder="Friendcode"
-                className="w-full p-2 rounded border border-gray-300"
-              />
-            </div>
-            {error && <p className="text-red-500 text-sm text-center">{error}</p>}
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Oluşturuluyor..." : "Hesap Oluştur"}
-            </Button>
-            <button
-              type="button"
-              className="text-sm text-gray-400 w-full text-center"
-              onClick={() => { setStep("email"); setPassword(""); setError(""); }}
-            >
-              Farklı email kullan
-            </button>
           </form>
         )}
 
