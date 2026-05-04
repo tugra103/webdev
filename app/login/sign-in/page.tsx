@@ -132,9 +132,9 @@ export default function SignIn() {
               {isSubmitting ? 'Signing In...' : 'Sign In'}
             </Button>
           </form>
-          <button onClick={() => signIn("mastodon")}>
+          <Button className="w-full" onClick={() => signIn("mastodon")}>
             Mastodon ile Giriş Yap
-          </button>
+          </Button>
       </Card>
     </div>
   )
