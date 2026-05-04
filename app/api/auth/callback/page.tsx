@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { collection, query, where, getDocs } from "firebase/firestore";
-import { db } from "@/app/firebase";
+import { db } from "@/lib/firebase";
 
 export default function AuthCallback() {
   const { data: session, status } = useSession();
@@ -23,7 +23,7 @@ export default function AuthCallback() {
       if (snap.empty) {
         router.replace("/complete-profile");
       } else {
-        router.replace("/dashboard");
+        router.replace("/auth/verify-password");
       }
     }
 
