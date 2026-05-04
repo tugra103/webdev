@@ -16,7 +16,7 @@ const AuthContext = createContext<AuthContextType>({
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const session = await getServerSession();
+  //const session = await getServerSession();
   useEffect(() => {
     if (!session) {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
