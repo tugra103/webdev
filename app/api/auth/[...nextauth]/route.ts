@@ -27,11 +27,33 @@ const handler = NextAuth({
     },
   ],
   callbacks: {
-    async session({ session, token }) {
-      session.user.id = token.sub!;
-      return session;
-    },
+    async jwt({ token, profile }) {
+    if (profile) {
+      token.mastodonId = profile.id;
+      token.mastodonUsername = profile.username;
+      token.mastodonAvatar = profile.avatar;
+
+      // Firestore'da var mı?
+      const snap = await adminDb
+        .collection("users")
+        .where("mastodonId", "==", profile.id)
+        .limit(1)
+        .get();
+
+      token.isNewUser = snap.empty;
+      if (!snap.empty) {
+        token.firebaseUid = snap.docs[0].id;
+      }
+    }
+    return token;
   },
+  async session({ session, token }) {
+    session.user.id = token.mastodonId as string;
+    session.user.isNewUser = token.isNewUser as boolean;
+    session.user.firebaseUid = token.firebaseUid as string;
+    return session;
+  },
+},
 });
 
 export { handler as GET, handler as POST };
