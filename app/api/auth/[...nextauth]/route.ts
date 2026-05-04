@@ -29,9 +29,15 @@ const handler = NextAuth({
   callbacks: {
     async jwt({ token, profile }) {
     if (profile) {
-      token.mastodonId = profile.id;
-      token.mastodonUsername = profile.username;
-      token.mastodonAvatar = profile.avatar;
+      const mastodonProfile = profile as {
+      id: string;
+      username: string;
+      avatar: string;
+    };
+
+    token.mastodonId = mastodonProfile.id;
+    token.mastodonUsername = mastodonProfile.username;
+    token.mastodonAvatar = mastodonProfile.avatar;
 
       // Firestore'da var mı?
       const snap = await adminDb
