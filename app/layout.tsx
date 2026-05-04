@@ -1,4 +1,3 @@
-
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -31,16 +30,16 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">        
+      <body className="min-h-full flex flex-col">
         <AuthProvider>
-        <FingerprintProvider
-          apiKey="GZPxUkuA0MLMwf37sk9s"
-          region="eu"
-        ><SessionWrapper>
-          {children}
-        </SessionWrapper></FingerprintProvider>
+          <FingerprintProvider
+            apiKey="GZPxUkuA0MLMwf37sk9s"
+            region="eu"
+          ><SessionWrapper>
+              {children}
+            </SessionWrapper></FingerprintProvider>
         </AuthProvider>
-        </body>
+      </body>
     </html>
   );
 }
