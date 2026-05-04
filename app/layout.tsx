@@ -4,7 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { FingerprintProvider } from '@fingerprint/react'
 import { AuthProvider } from "@/context/AuthContext";
-import SessionWrapper from "@/components/SessionWrapper";
+import SessionWrapper from "@/comporents/SessionWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
