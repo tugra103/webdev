@@ -28,6 +28,15 @@ export default function ChatPage() {
     const chatsRef = useRef<HTMLUListElement>(null);
     const [isTyping, setIsTyping] = useState(false);
     const searchParams = useSearchParams();
+    try{
+        if (JSON.parse(localStorage.getItem("msgai"))[0].content===chats[0].content){
+            setChats(JSON.parse(localStorage.getItem("msgai")));
+        }
+    }catch{
+    }
+    useEffect(()=>{
+        localStorage.setItem("msgai",JSON.stringify(chats));
+    },[chats])
     useEffect(() => {
         const startMsg = searchParams.get("startmsg");
         if (!startMsg) return;
