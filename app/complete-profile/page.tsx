@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import { db, app } from "@/lib/firebase"; // senin mevcut firebase config'in
+import { db, app } from "@/app/firebase"; // senin mevcut firebase config'in
 
 export default function CompleteProfile() {
   const { data: session } = useSession();
