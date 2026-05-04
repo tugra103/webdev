@@ -7,6 +7,7 @@ import { Card } from "primereact/card";
 import { Avatar } from "primereact/avatar";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "@/app/firebase";
+import { useSession } from "next-auth/react";
 import { updateProfile, getAuth, signOut } from "firebase/auth";
 import { TabView, TabPanel } from 'primereact/tabview';
 import { ProgressSpinner } from 'primereact/progressspinner';
