@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { collection, query, where, getDocs } from "firebase/firestore";
-import { db, app } from "@/lib/firebase";
+import { db, app } from "@/app/firebase";
 
 export default function VerifyPassword() {
   const { data: session } = useSession();
