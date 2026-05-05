@@ -30,13 +30,16 @@ export default function ChatPage() {
     const searchParams = useSearchParams();
     const raw = localStorage.getItem("msgai");
 
-    if (raw) {
+    useEffect(() => {
+    const raw = localStorage.getItem("msgai");
+    if (!raw) return;
+    try {
         const parsed = JSON.parse(raw);
-
-    if (parsed[0].content === chats[0].content) {
-        setChats(parsed);
-    }
-    }
+        if (parsed[0]?.content === chats[0].content) {
+            setChats(parsed);
+        }
+    } catch {}
+    }, []);
     useEffect(()=>{
         localStorage.setItem("msgai",JSON.stringify(chats));
     },[chats])
