@@ -424,7 +424,7 @@ export default function TakvimComponent({ initialEvents = [], onChange }: Takvim
                 </div>
               </div>
             )
-          )}
+          }
         </div>
       </div>
 
