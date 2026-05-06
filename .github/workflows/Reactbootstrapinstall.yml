@@ -18,7 +18,7 @@ jobs:
 
       - name: İnstall React Bootstrap
         run: |
-          npm install next-auth
+          npm install primereact primeicons primeflex
 
 
       - name: Commit and push changes
