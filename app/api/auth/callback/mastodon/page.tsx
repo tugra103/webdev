@@ -34,6 +34,9 @@ export default function AuthCallback() {
 
     check();
   }, [session, status]);
+  useEffect(() => {
+    console.log(msg)
+  }, [msg])
 
   return <p>{msg}</p>;
 }
