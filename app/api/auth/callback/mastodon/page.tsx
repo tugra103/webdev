@@ -12,6 +12,7 @@ export default function AuthCallback() {
   const [ msg, setMsg]= useState("")
   const router = useRouter();
   console.log("BAşladı")
+  console.log(status)
   useEffect(() => {
     if (status === "loading" || !session) return;
 
