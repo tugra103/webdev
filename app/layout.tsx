@@ -4,7 +4,10 @@ import "./globals.css";
 import { FingerprintProvider } from '@fingerprint/react'
 import { AuthProvider } from "@/context/AuthContext";
 import SessionWrapper from "@/comporents/SessionWrapper";
-
+import "primereact/resources/themes/lara-light-blue/theme.css";
+import 'primereact/resources/primereact.min.css'
+import 'primeicons/primeicons.css'
+import 'primeflex/primeflex.css'
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
