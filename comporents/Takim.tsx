@@ -54,8 +54,8 @@ const categoryItemTemplate = (option: { label: string; value: EventCategory; col
   </div>
 )
  
-function isSameDay(d1, d2) {
-  if (!d1 || !d2 || isNaN(d1) || isNaN(d2)) return false
+function isSameDay(d1: Date, d2: Date): boolean {
+  if (!d1 || !d2 || isNaN(d1.getTime()) || isNaN(d2.getTime())) return false
   return (
     d1.getFullYear() === d2.getFullYear() &&
     d1.getMonth() === d2.getMonth() &&
