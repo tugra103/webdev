@@ -11,12 +11,12 @@ export default function AuthCallback() {
   const { data: session, status } = useSession();
   const [ msg, setMsg]= useState("")
   const router = useRouter();
-
+  console.log("BAşladı")
   useEffect(() => {
     if (status === "loading" || !session) return;
 
     async function check() {
-      setMsg("Kullanıcı Aranıyor")
+      console.log("Kullanıcı Aranıyor")
       const q = query(
         collection(db, "users"),
         where("mastodonId", "==", session!.user.id)
@@ -24,10 +24,10 @@ export default function AuthCallback() {
       const snap = await getDocs(q);
 
       if (snap.empty) {
-        setMsg("Kullanıcı Bulunamadı, profil oluşturuluyor")
+        console.log("Kullanıcı Bulunamadı, profil oluşturuluyor")
         router.replace("/complete-profile");
       } else {
-        setMsg("Kullanıcı Bulundu")
+        console.log("Kullanıcı Bulundu")
         router.replace("/auth/verify-password");
       }
     }
