@@ -9,7 +9,7 @@ import { db } from "@/app/firebase";
 
 export default function AuthCallback() {
   const { data: session, status } = useSession();
-  const { msg, setMsg}= useState("")
+  const [ msg, setMsg]= useState("")
   const router = useRouter();
 
   useEffect(() => {
