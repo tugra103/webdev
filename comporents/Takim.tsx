@@ -1,5 +1,5 @@
 'use client'
-
+ 
 import { useState, useRef, useCallback, useMemo } from 'react'
 import { Calendar } from 'primereact/calendar'
 import { Button } from 'primereact/button'
@@ -10,9 +10,9 @@ import { Tag } from 'primereact/tag'
 import { Toast } from 'primereact/toast'
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog'
 import { Dropdown } from 'primereact/dropdown'
-
+ 
 export type EventCategory = 'personal' | 'work' | 'meeting' | 'reminder'
-
+ 
 export interface CalendarEvent {
   id: number | string
   title: string
@@ -20,26 +20,26 @@ export interface CalendarEvent {
   description?: string
   category?: EventCategory
 }
-
+ 
 interface TakvimProps {
   initialEvents?: CalendarEvent[]
   onChange?: (events: CalendarEvent[]) => void
 }
-
+ 
 const CATEGORIES = [
   { label: 'Kişisel', value: 'personal', color: '#818cf8' },
   { label: 'İş', value: 'work', color: '#34d399' },
   { label: 'Toplantı', value: 'meeting', color: '#f97316' },
   { label: 'Hatırlatıcı', value: 'reminder', color: '#f43f5e' },
 ]
-
+ 
 const getCategoryColor = (value: EventCategory | undefined): string =>
   CATEGORIES.find((c) => c.value === value)?.color ?? '#818cf8'
-
+ 
 const getCategoryLabel = (value: EventCategory | undefined): string =>
   CATEGORIES.find((c) => c.value === value)?.label ?? (value ?? '')
-
-const categoryItemTemplate = (option) => (
+ 
+const categoryItemTemplate = (option: { label: string; value: EventCategory; color: string }) => (
   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
     <span
       style={{
@@ -53,7 +53,7 @@ const categoryItemTemplate = (option) => (
     {option.label}
   </div>
 )
-
+ 
 function isSameDay(d1, d2) {
   if (!d1 || !d2 || isNaN(d1) || isNaN(d2)) return false
   return (
@@ -62,7 +62,7 @@ function isSameDay(d1, d2) {
     d1.getDate() === d2.getDate()
   )
 }
-
+ 
 /**
  * @param {Object}   props
  * @param {Array}    props.initialEvents  - Başlangıç etkinlikleri
@@ -76,7 +76,7 @@ export default function TakvimComponent({ initialEvents = [], onChange }: Takvim
   const [events, setEvents] = useState<CalendarEvent[]>(
     initialEvents.map((e) => ({ ...e, date: new Date(e.date) }))
   )
-
+ 
   const [dialogVisible, setDialogVisible] = useState(false)
   const [editingEvent, setEditingEvent] = useState<CalendarEvent | null>(null)
   const [form, setForm] = useState<CalendarEvent>({
@@ -86,32 +86,32 @@ export default function TakvimComponent({ initialEvents = [], onChange }: Takvim
     category: 'personal',
     date: new Date(),
   })
-
+ 
   const dayEvents = useMemo(
     () => events.filter((e) => isSameDay(e.date, selectedDate)),
     [events, selectedDate]
   )
-
+ 
   const openNew = () => {
     setEditingEvent(null)
     setForm({ id: 0, title: '', description: '', category: 'personal', date: selectedDate })
     setDialogVisible(true)
   }
-
+ 
   const openEdit = (event) => {
     setEditingEvent(event)
     setForm({ description: '', ...event })
     setDialogVisible(true)
   }
-
+ 
   const updateEvents = (nextEvents) => {
     setEvents(nextEvents)
     onChange?.(nextEvents)
   }
-
+ 
   const saveEvent = () => {
     if (!form.title.trim()) return
-
+ 
     if (editingEvent) {
       updateEvents(events.map((e) => (e.id === editingEvent.id ? { ...form, id: e.id } : e)))
       toast.current.show({ severity: 'success', summary: 'Güncellendi', life: 2000 })
@@ -121,7 +121,7 @@ export default function TakvimComponent({ initialEvents = [], onChange }: Takvim
     }
     setDialogVisible(false)
   }
-
+ 
   const deleteEvent = (id) => {
     confirmDialog({
       message: 'Bu etkinliği silmek istediğine emin misin?',
@@ -136,7 +136,7 @@ export default function TakvimComponent({ initialEvents = [], onChange }: Takvim
       },
     })
   }
-
+ 
   const upcomingEvents = useMemo(
     () =>
       events
@@ -145,7 +145,7 @@ export default function TakvimComponent({ initialEvents = [], onChange }: Takvim
         .slice(0, 4),
     [events, selectedDate]
   )
-
+ 
   const dateTemplate = useCallback((date) => {
     const d = new Date(date.year, date.month, date.day)
     const hasEvent = events.some((e) => isSameDay(e.date, d))
@@ -170,12 +170,12 @@ export default function TakvimComponent({ initialEvents = [], onChange }: Takvim
       </div>
     )
   }, [events])
-
+ 
   return (
     <>
       <Toast ref={toast} position="top-right" />
       <ConfirmDialog />
-
+ 
       <div
         style={{
           display: 'flex',
@@ -212,7 +212,7 @@ export default function TakvimComponent({ initialEvents = [], onChange }: Takvim
               })}
             </p>
           </div>
-
+ 
           <Calendar
             value={selectedDate}
             onChange={(e) => e.value && setSelectedDate(e.value)}
@@ -221,7 +221,7 @@ export default function TakvimComponent({ initialEvents = [], onChange }: Takvim
             style={{ width: '100%' }}
           />
         </div>
-
+ 
         {/* ── Sağ: Etkinlikler ── */}
         <div style={{ flex: 1, minWidth: 300 }}>
           {/* Başlık + Ekle butonu */}
@@ -259,7 +259,7 @@ export default function TakvimComponent({ initialEvents = [], onChange }: Takvim
               }}
             />
           </div>
-
+ 
           {/* Etkinlik Listesi */}
           {dayEvents.length === 0 ? (
             <div
@@ -353,7 +353,7 @@ export default function TakvimComponent({ initialEvents = [], onChange }: Takvim
               ))}
             </div>
           )}
-
+ 
           {/* Yaklaşan Etkinlikler */}
           {upcomingEvents.length > 0 && (
               <div style={{ marginTop: 32 }}>
@@ -427,7 +427,7 @@ export default function TakvimComponent({ initialEvents = [], onChange }: Takvim
           )}
         </div>
       </div>
-
+ 
       {/* ── Etkinlik Dialog ── */}
       <Dialog
         visible={dialogVisible}
@@ -466,7 +466,7 @@ export default function TakvimComponent({ initialEvents = [], onChange }: Takvim
               autoFocus
             />
           </div>
-
+ 
           <div className="flex flex-column gap-2">
             <label style={{ fontSize: '0.82rem', color: '#9090b8' }}>Açıklama</label>
             <InputTextarea
@@ -477,7 +477,7 @@ export default function TakvimComponent({ initialEvents = [], onChange }: Takvim
               autoResize
             />
           </div>
-
+ 
           <div className="flex flex-column gap-2">
             <label style={{ fontSize: '0.82rem', color: '#9090b8' }}>Tarih</label>
             <Calendar
@@ -487,7 +487,7 @@ export default function TakvimComponent({ initialEvents = [], onChange }: Takvim
               showIcon
             />
           </div>
-
+ 
           <div className="flex flex-column gap-2">
             <label style={{ fontSize: '0.82rem', color: '#9090b8' }}>Kategori</label>
             <Dropdown
@@ -504,3 +504,4 @@ export default function TakvimComponent({ initialEvents = [], onChange }: Takvim
     </>
   )
 }
+ 
