@@ -33,11 +33,11 @@ const CATEGORIES = [
   { label: 'Hatırlatıcı', value: 'reminder', color: '#f43f5e' },
 ]
 
-const getCategoryColor = (value) =>
+const getCategoryColor = (value: EventCategory | undefined): string =>
   CATEGORIES.find((c) => c.value === value)?.color ?? '#818cf8'
 
-const getCategoryLabel = (value) =>
-  CATEGORIES.find((c) => c.value === value)?.label ?? value
+const getCategoryLabel = (value: EventCategory | undefined): string =>
+  CATEGORIES.find((c) => c.value === value)?.label ?? (value ?? '')
 
 const categoryItemTemplate = (option) => (
   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -423,8 +423,8 @@ export default function TakvimComponent({ initialEvents = [], onChange }: Takvim
                   ))}
                 </div>
               </div>
-            )
-          }
+            
+          )}
         </div>
       </div>
 
