@@ -6,7 +6,7 @@ const events = [
     title: 'Toplantı',
     date: new Date('2026-05-10'),
     description: 'Sprint planning',
-    category: 'meeting', // 'personal' | 'work' | 'meeting' | 'reminder'
+    category: 'meeting' as const, // 'personal' | 'work' | 'meeting' | 'reminder'
   },
 ]
 
